@@ -1,0 +1,51 @@
+@charset "utf-8";
+/* CSS Document */
+* { font-family: 'PingHei','Arial'; margin: 0px; padding: 0px; text-decoration: none; color: #ffffff }
+body { min-width: 1200px; }
+.app_top { width: auto; }
+.app_dow_nav { width: auto; margin: 0 auto; height: 69px; background: rgba(255, 186, 132, 0.2); border-bottom: 3px solid #f55e3b; }
+.app_dow_nav_row { width: 1200px; margin: 0 auto; }
+.logo { float: left; margin-top: 12px; }
+.logo-top { width: 189px; }
+.nav { width: 660px; height: 75px; float: right; overflow: hidden }
+.banner { width: auto; height: 630px; background: url(../images/appdownload/app_dow_banner_bg.jpg) no-repeat; position: relative }
+.QR_code { width: 200px; background: url('../images/appdownload/QR_code.png') no-repeat; margin-top: 38px; float: right; overflow: hidden; }
+.QR_cover { width: 184px; height: 218px; position: absolute; top: 318px; overflow: hidden; }
+.QR_code_down { margin: 0 13px; z-index: 100; position: relative; }
+.app_dow_banner_img { width: 502px; height: 562px; float: left; }
+.app_dow_benner_text { float: left; margin: 0 8px; width: 682px; height: 100%; }
+.app_dow_banner_notice { display: inline-block; margin-top: 18px; font-size: 19px; }
+.app_dow_benner_text ul { list-style: none; }
+.app_dow_benner_text .app_info { float: left; }
+.banben { float: left; margin-left: 8px; margin-top: 8px; }
+.banner_contents { width: 1200px; height: 552px; margin: 0 auto }
+.banner_phone { height: 500px; position: relative; margin: 38px; }
+.app_dow_nav_title { float: left; margin: 36px 18px; font-size: 22px; height: 38px; }
+.app_dow_nav_return { float: right; margin: 36px 10px; font-size: 18px; }
+/*.app_dow_nav:hover { background: url('../images/appdownload/app_dow_nav_hover.png')20px 60px no-repeat; position: relative; z-index: 100 }*/
+.active { background: url('../images/appdownload/app_dow_nav_hover.png')16px 22px no-repeat; position: relative; z-index: 100 }
+.app_dow_nav_ipad:hover { background: url('../images/appdownload/app_dow_nav_hover.png')10px 60px no-repeat; position: relative; z-index: 100 }
+.app_stor_btn { width: 171px; height: 55px; background: url('../images/appdownload/app_stor_btn.png') no-repeat; }
+.app_stor_btn2 { width: 190px; height: 55px; background: url('/images/app/app_stor_btn2.png') no-repeat; }
+.app_stor_btn:hover { width: 171px; height: 55px; background: url('../images/appdownload/app_stor_btn_hover.png') no-repeat; cursor: pointer; }
+.app_img { height: 600px; }
+.app_img_cld { width: 1091px; height: 600px; position: relative; margin: 0 auto; z-index: 1;}
+.app_img_qr { height: 300px; }
+.app_img_1_cover { width: 167px; height: 167px; left: 870px; top: 220px; position: absolute }
+.app_img_bg { background: #f5f5f5 }
+section { width: 100%; min-width: 1440px }
+section:nth-of-type(odd) { background-color: #F3F3F3 }
+section:nth-of-type(n+2) div, section:nth-of-type(n+2) figure, #ranks figure span { opacity: 0; -webkit-transition: all 1s cubic-bezier(.54, 1, .87, .99); -webkit-transition: all 1s cubic-bezier(.54, 1.11, .87, .99); -moz-transition: all 1s cubic-bezier(.54, 1.11, .87, .99); transition: all 1s cubic-bezier(.54, 1.11, .87, .99) }
+section:nth-of-type(n+2) div { width: 1440px; margin: 0 auto; position: relative }
+section:nth-of-type(n+2) figure { position: absolute }
+section:nth-of-type(n+2) #ranks figure { right: 190px; bottom: 0; -webkit-transition-delay: .5s; -moz-transition-delay: .5s; transition-delay: .5s }
+#ranks.animation figure { right: 210px; opacity: 1 }
+#ranks figure span { display: block; background: url(../images/appdownload/app_img_1_cover.png) no-repeat; width: 167px; height: 167px; position: absolute; left: 870px; top: 220px; -webkit-transition-delay: 0.8s; -moz-transition-delay: 0.8s; transition-delay: 0.8s; -webkit-transform: rotate(-90deg) scale(0); -moz-transform: rotate(-90deg) scale(0); transform: rotate(-90deg) scale(0) }
+#ranks.animation figure span { opacity: 1; -webkit-transform: rotate(0) scale(1); -moz-transform: rotate(0) scale(1); transform: rotate(0) scale(1) }
+.app_img_3_cover { position: absolute; top: 0px; left: 690px; z-index: 1 }
+.app_img_3_up { position: absolute; top: 200px; left: 720px; background: #ffffff; }
+.app_img_4_cover_1 { background: url('../images/appdownload/app_img_4_cover.png') -222px 0px no-repeat; position: absolute; top: 70px; left: 99px; width: 230px; height: 400px; display: none }
+.app_img_4_cover_2 { background: url('../images/appdownload/app_img_4_cover.png') 8px 0px no-repeat; position: absolute; top: 70px; left: 88px; width: 230px; height: 400px; display: none }
+.app_img_4_cover_3 { background: url('../images/appdownload/app_img_4_cover_3.png')no-repeat; position: absolute; top: 64px; left: 92px; width: 230px; height: 400px; display: none }
+.app_img_2_cover { width: 194px; height: 358px; position: absolute; top: 111px; left: 115px; }
+.app_img_2_cover { background: url('../images/appdownload/app_img_2_cover_2.png') no-repeat; display: none }

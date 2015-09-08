@@ -1,0 +1,153 @@
+.calendar  * {
+    box-sizing: border-box;
+    font-family: Tahoma;
+    font-size: 14px;
+}
+
+.calendar {
+    width:333px;
+    margin-top:70px;
+    display:none;
+    cursor: default;
+    height: 270px;
+    position:absolute;
+    right:218px;
+    z-index:1;
+}
+
+.calendar-sm .c-pad-top {
+    padding-top: 2%;
+}
+
+.calendar .c-pad-top {
+    padding-top: 2%;
+}
+
+.c-day {
+    width: 14.28%;
+    height: 13%;
+    background-color: #FEF7E9;
+    float: left;
+    text-align: center;
+	border:1px solid #F4EDDF;
+}
+
+.c-day-previous-month {
+    width: 14.28%;
+    height: 13%;
+    background-color: #FEF7E9;
+    float: left;
+    text-align: center;
+    color: gray;
+	border:1px solid #F4EDDF;
+}
+
+.c-day-next-month {
+    width: 14.28%;
+    height: 13%;
+    background-color: #FEF7E9;
+    float: left;
+    text-align: center;
+    color: gray;
+	border:1px solid #F4EDDF;
+}
+
+.c-week-day {
+    width: 14.28%;
+    background-color: #FEF7E9;
+    color: #585858;
+    float: left;
+    text-align: center;
+    padding-top: 1%;
+	border-top:1px solid #F4EDDF;
+	border-bottom:1px solid #F4EDDF;
+}
+
+.c-next {
+    width: 12.5%;
+    height: 12%;
+    padding: 2% 2% 0 2%;
+    text-align: right;
+    cursor: pointer;
+}
+
+.c-previous {
+    width: 12.5%;
+    height: 12%;
+    padding: 2% 2% 0 2%;
+    text-align: left;
+    cursor: pointer;
+}
+
+.c-month {
+    width: 75%;
+    height: 12%;
+    text-align: center;
+}
+
+.c-nav-btn-over {
+    background-color: rgb(137, 163, 192) !important;
+    font-weight: bold;
+}
+
+.c-today {
+    background-color: #D8EAF1;
+}
+
+.c-event {
+    background:url(../images/sign_have_anime.gif) no-repeat scroll center 4px white;
+    color: black;
+    font-weight: bold;
+    cursor: default;
+}
+
+.c-grid {
+    float: right;
+}
+
+.c-grid-title {
+    font-weight: bold;
+    float: left;
+    background-color: #FEF7E9;
+    color: #585858;
+	border-bottom:1px solid #F4EDDF;
+}
+
+.c-uevent-over{
+	background-color: #FEF7AD;
+	cursor: pointer;
+}
+
+.borderb_none{border-bottom: none;}
+.topbar{ height:30px; line-height:30px; background:#f2f2f2; border:1px solid #d5d5d5; border-width:1px 0; color:#444;}
+.dlg_box { background-color: #FFFFFF; border-radius: 5px;  box-shadow: 0 0 4px rgba(0, 0, 0, 0.7); display: none; height: auto; left: 38%; padding: 25px;  position: fixed;
+ top: 200px; width: 348px; z-index: 100000;}
+.dlg_box_one { background-color: #FFFFFF; border-radius: 5px;  box-shadow: 0 0 4px rgba(0, 0, 0, 0.7); height: auto; left: 38%; padding: 25px;  position: fixed;
+ top: 200px; width: 348px; z-index: 2000;}
+.dlg_box .ui-dialog-titlebar {  background-color: #fb6e52;  border-top-left-radius: 5px;  border-top-right-radius: 5px; height: 36px; left: 38%;  position: fixed;  top: 200px;  width: 398px; z-index: 2000;}
+.dlg_box_one .ui-dialog-titlebar {  background-color: #fb6e52;  border-top-left-radius: 5px;  border-top-right-radius: 5px; height: 36px; left: 38%;  position: fixed;  top: 200px;  width: 398px; z-index: 2000;}
+.dlg_box .ui-dialog-titlebar .ui-dialog-title {color: #FFFFFF; font-size: 13px;  margin: 6px 17px;  position: absolute;}
+.dlg_box_one .ui-dialog-titlebar .ui-dialog-title {color: #FFFFFF; font-size: 13px;  margin: 6px 17px;  position: absolute;}
+.dlg_box .ui-dialog-titlebar .ui-icon-closethick { color: #FFFFFF; float: right; font-weight: bold; margin: 6px;}
+.dlg_box_one .ui-dialog-titlebar .ui-icon-closethick { color: #FFFFFF; float: right; font-weight: bold; margin: 6px;}
+.dlg_box #dlg_box_contents .small { font-size: 11px; padding: 0.2em 1em 0.275em;}
+.dlg_box_one #dlg_box_contents .small { font-size: 11px; padding: 0.2em 1em 0.275em;}
+.dlg_box #dlg_box_contents .white { background: -moz-linear-gradient(center top , #FFFFFF, #EDEDED) repeat scroll 0 0 rgba(0, 0, 0, 0); border: 1px solid #B7B7B7; color: #606060;}
+.dlg_box_one #dlg_box_contents .white { background: -moz-linear-gradient(center top , #FFFFFF, #EDEDED) repeat scroll 0 0 rgba(0, 0, 0, 0); border: 1px solid #B7B7B7; color: #606060;}
+.dlg_box #dlg_box_contents .button{ border-radius: 0.5em; box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2); cursor: pointer; display: inline-block; font: 14px/100% Arial,Helvetica,sans-serif;  margin: 0 2px;
+    outline: medium none; text-align: center; text-decoration: none; text-shadow: 0 1px 1px rgba(0, 0, 0, 0.3); vertical-align: baseline;}
+.dlg_box_one #dlg_box_contents .button{ border-radius: 0.5em; box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2); cursor: pointer; display: inline-block; font: 14px/100% Arial,Helvetica,sans-serif;  margin: 0 2px;
+    outline: medium none; text-align: center; text-decoration: none; text-shadow: 0 1px 1px rgba(0, 0, 0, 0.3); vertical-align: baseline;}
+#dlg_bg{  background: #000000; display: none; height: 100%; left: 0; opacity: 0.5; position: fixed; top: 0; width: 100%; z-index: 10000;}
+#pdllg_box .popup_shadow{background: #000; height: 100%; left: 0; opacity: 0.5; position: fixed; top: 0; width: 100%; z-index: 1999;}
+.dlg_box #dlg_box_contents .instation_msg{font-size: 14px; color: #333; padding:50px 25px;}
+.dlg_box_one #dlg_box_contents .instation_msg{font-size: 14px; color: #333; padding:50px 25px;}
+.fly_item {
+	border: 2px solid #B30000;
+	width: 50px;
+	height: 50px;
+	overflow: hidden;
+	position: absolute;
+	visibility: hidden;
+	opacity: 0.5; filter: alpha(opacity=50);
+}

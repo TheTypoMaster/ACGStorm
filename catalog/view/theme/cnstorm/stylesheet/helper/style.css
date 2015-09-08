@@ -1,0 +1,12 @@
+.buy_helper{position:relative}
+.b_h_banner{position:relative;z-index:1}
+.b_h_down{position:absolute;z-index: 10;cursor:pointer;top:250px;right:308px;}
+.b_h_bk{position:absolute;z-index: 10;cursor:pointer;top:250px;right:174px;}
+.b_h_title{font-size:24px;margin-left:40px;border-left:5px #ec8724 solid;height:25px;line-height:25px;padding-left:12px}
+.b_h_content{width:938px;padding-left:40px;}
+.b_h_row{float:left;width:430px;padding-top:15px}
+.b_h_pro{font-size:18px;background:url('../../images/helper/buy_helper_pro.jpg') no-repeat;padding-left:26px}
+.b_h_easy{font-size:18px;background:url('../../images/helper/buy_helper_easy.jpg') no-repeat;padding-left:30px}
+.b_h_text{font-size:14px;width:350px;color:#999999}
+.b_h_faq{font-size:14px;border-bottom:1px #e6e6e6 dashed;padding-bottom:10px;padding-top:17px;width: 860px}
+.buy_helper_bookmark{background:url('../../images/helper/buy_helper_bookmark.png');display:block;width: 150px;height:40px}

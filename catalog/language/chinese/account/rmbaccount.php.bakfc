@@ -1,0 +1,12 @@
+<?php
+/**
+ * $Author: http://www.opencartchina.com 
+**/
+// Heading
+$_['heading_title']  = '人民币账户';
+
+// Text
+$_['text_rmbaccount']   = '人民币账户';
+$_['text_onlinecharge']  = '在线充值';
+
+?>

@@ -1,0 +1,87 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8;" charset="UTF-8" />
+<meta name="apple-itunes-app" content="app-id=914402588" />
+<meta property="wb:webmaster" content="e864759f92e3d23f" />
+<link rel="canonical" href="http://www.acgstorm.com/">
+<link rel="stylesheet" href="catalog/view/theme/cnstorm/stylesheet/default-header.css"/>
+<link rel="stylesheet" href="catalog/view/theme/cnstorm/stylesheet/default-other.css"/>
+<script src="catalog/view/javascript/jquery2/jquery.min.js"></script>
+<script src="catalog/view/javascript/jquery2/main.js"></script>
+<script src="catalog/view/javascript/jquery2/product.js"></script>
+<style type="text/css">
+.search ul { position: absolute; top: -28px; left: -2px; }
+.search ul li { float: left; padding: 4px 12px; /*border: 2px solid #fb6e52; border-radius: 4px;*/ border-bottom: 0; color: gray; }
+.search ul li.on, .search ul li:hover { color: white; background: #fb6e52; }
+.search ul li.mid { border-left: 0; border-right: 0; }
+</style>
+</head>
+
+<body>
+<div class="view-div-bg"></div>
+<div class="order_cover_bg"></div>
+<div class="topbar">
+  <div class="wrap fs2">
+    <div class="fl" style="position: relative"> <span class="WLto">欢迎莅临CNstorm！</span><a class="online b" href="/help.html">联系客服</a>
+      <div class="order_cover" signtip="<?php if (isset($signtip)) echo $signtip; ?>"  style="position: absolute;z-index:1000000;left:665px;top:135px;display:none"> <img src="catalog/view/theme/cnstorm/images/order/user_center_covar.png"/>
+        <div class="close_order_cover" style="position:absolute;width:60px;height: 25px;cursor:pointer;top:100px;left:550px;"></div>
+      </div>
+    </div>
+    <div class="fr"> <span>
+      <?php if (!$logged) { ?>
+      <a href="<?php echo $login;?>" rel="nofollow">登录</a></span><i class="long">|</i><a href="<?php echo $register;?>" rel="nofollow">注册</a>
+      <?php } else { ?>
+      <?php echo $text_logged; ?>
+      <?php } ?>
+      <!--<a href="#">登录</a></span><i class="long">
+    |</i><a href="#">注册</a><i class="long">--> 
+      
+      <i class="long">|</i><a href="<?php echo $order;?>">用户中心</a> <i class="long">|</i> <span class="tools pre"> <span class="sublink pab none"><a href="<?php echo $freight;?>">物流运费</a><a href="<?php echo $populartools;?>&id=12">包裹查询</a><a href="<?php echo $populartools;?>&id=10">费用估算</a><a href="<?php echo $populartools;?>&id=9">尺码换算</a><a href="<?php echo $populartools;?>&id=4">代购助手</a></span><span class="intool pre dik">常用工具<b class="b pab"></b></span> </span><i class="long">|</i> <a href="<?php echo $help;?>">帮助中心</a> <i class="long">|</i><a href="javascript:translatePage();" id="translateLink">繁體</a><i class="long">|</i><a target="_blank" href="index.php?route=app/appload" class="app_down"><span class="ico_app_down"></span><span class="QR_app_down"></span>手机客户端</a><i class="long">|</i><a target="_blank" href="index.php?route=business/main">商户版</a></div>
+  </div>
+</div>
+<div class="logoWrap wrap pre"> <a class="logo b dk thid" href="<?php echo $home; ?>" rel="nofollow">时尚便捷的留学生及华人购物服务平台</a>
+  <div class="search pab">
+    <ul>
+      <li class="on" data-href="/index.php?route=product/snatch">代购</li>
+      <li class="mid" data-href="/index.php?route=order/snatch">自助购</li>
+      <li data-href="/index.php?route=order/make/order_daiji">代寄</li>
+      <li data-href="/index.php?route=product/search">站内搜索</li>
+    </ul>
+    <input type="button" class="schBtn fr" id="button-search" value="我要代购" />
+    <input id="search" class="schText" x-webkit-speech="" placeholder="粘贴您想购买的中国购物网站的商品地址"  type="text">
+  </div>
+  <div class="barCart pab" id="shopCart">
+    <div class="barBox fs4"> <em class="fr" id="cartCount"><?php echo $count; ?></em> <span class="pre fl"><i class="b pab"></i><a href="<?php echo $shopping_cart; ?>" rel="nofollow">购物车</a></span> </div>
+    <?php if (!$logged) { ?>
+    <div class="cartBox pab none"> <span class="space pab"></span> <b class="triangle b pab"></b>
+      <p class="tips fs4">查看购物车中商品，赶快登录吧！</p>
+    </div>
+    <?php } else { ?>
+    <?php if(!$flag) { ?>
+    <div class="cartBox pab none"> <span class="space pab"></span> <b class="triangle b pab"></b>
+      <p class="tips fs4">购物车中还没有商品，赶快选购吧！</p>
+    </div>
+    <?php }else{ ?>
+    <ul class="gwcBox pab none">
+      <li><b class="triangle b pab"></b></li>
+      <?php foreach($products as $product) { ?>
+      <li class="line"> <img src="<?php echo $product['thumb']; ?>" alt="缩略图" />
+        <dl>
+          <dt><a href="javscript:void(0);"><?php echo $product['name']; ?></a></dt>
+          <dd>￥<b><?php echo $product['price']; ?></b><em>x</em><b><?php echo $product['quantity']; ?></b></dd>
+        </dl>
+      </li>
+      <?php } ?>
+      <li class="end">
+        <dl>
+          <dt>共计<b><?php echo $count; ?></b>件产品</dt>
+          <dd>合计：<b>￥<?php echo $totalprice; ?></b></dd>
+        </dl>
+        <span class="settle_accounts"><a class="btn" href="<?php echo $shopping_cart; ?>">去购物车结算</a></span> </li>
+    </ul>
+    <?php }} ?>
+  </div>
+</div>
+<link rel="stylesheet" href="catalog/view/theme/cnstorm/stylesheet/default.css"/>
+</html>

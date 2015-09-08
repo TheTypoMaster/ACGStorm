@@ -1,0 +1,56 @@
+@charset "UTF-8";
+/*
+ * @author:zxy
+ * @version:20150803093220
+ * @time:2015-08-03
+*/
+/*2015-08-03运单详情[[*/
+.odetails-methodtabs{width:600px;margin:30px 0;padding-bottom:12px;overflow:hidden;}
+.odetails-methodtabs li{width:50%;height:40px;position:relative;float:left;background:#e6e6e6;line-height:40px;
+text-align:center;font-size:14px;font-weight:bold;}
+.odetails-methodtabs li.curr{background:#fb6e52;color:#fff;}
+.odetails-methodtabs li.curr .odetails-triangle{width:0;height:0;position:absolute;bottom:-10px;left:50%;margin-left:-10px;display:block;
+border-width:12px 12px 0;border-style:solid;border-color:#fb6e52 transparent transparent;_border-color:#fb6e52 #fff #fff;}
+.odetails-steptips{width:603px;overflow:hidden;background:url(../images/steptips_icons.png) no-repeat 0 -25px;}
+.odetails-steptips li{width:160px;height:25px;position:relative;float:left;overflow:hidden;z-index:2;}
+.odetails-steptips .step-1-done,.odetails-steptips .step-2-done,.odetails-steptips .step-3-done,.odetails-steptips .step-4-done{background:url(../images/steptips_icons.png) no-repeat 0 -25px;}
+.odetails-steptips .first-step{width:140px;}
+.odetails-steptips .last-step{width:143px;}
+.odetails-steptips .step-1-done{background-position:0 0;}
+.odetails-steptips .step-2-done{background-position:-140px 0;}
+.odetails-steptips .step-3-done{background-position:-300px 0;}
+.odetails-steptips .step-4-done{background-position:-460px 0;}
+.odetails-stepcont{margin:15px 0;overflow:hidden;}
+.odetails-stepcont li{width:125px;margin:0 35px 0 0;float:left;overflow:hidden;text-align:center;}
+.odetails-splittitle{margin:40px auto 10px;overflow:hidden;font-size:14px;font-weight:600;clear:both;float:none;}
+.odetails-status{padding:20px;background:#f7f7f7;border:1px solid #e6e6e6;}
+.odsi-logistics{width:100%;margin:10px auto;overflow:hidden;line-height:30px;font-size:14px;}
+.odsi-logistics .jetblackColor{width:199px;display:block;float:left;overflow:hidden;text-align:right;}
+.odsi-logistics .odsi-logistics-infors{width:710px;margin-left:25px;float:left;overflow:hidden;}
+.odetails-status-contents{width:100%;margin:0 auto;overflow:hidden;clear:both;}
+.odetails-status-list{margin:-9px auto;padding-left:3px;line-height:30px;}
+.odetails-status-list li{width:100%;height:auto;min-height:30px;margin:0 auto;clear:both;border-left:1px solid #d9d9d9;}
+.odetails-status-list li:before{width:7px;height:7px;margin:-9px 10px 0 -6px;content:'';
+display:inline-block;*display:inline;zoom:1;border:2px solid #f7f7f7;background-color:#ccc;border-radius:50%;}
+.odetails-status-list .latest:before{border-color:#f7f7f7;background-color:#fb6e52;}
+.jetblackColor{color:#1a1a1a;}
+.odetails-status-list span{display:inline;font-size:14px;}
+.odetails-status-list .hidden{visibility:hidden;}
+.odetails-status-list .odsi-date{width:82px;font-weight:700;}
+.odetails-status-list .odsi-week{width:30px;margin:0 10px;font-weight:700;}
+.odetails-status-list .odsi-time{width:50px;}
+.odsi-text{width:720px;margin-left:25px;overflow:hidden;}
+.odsi-destination{margin:15px auto;padding-top:10px;text-indent:3em;font-size:14px;}
+.blueColor{color:#3877ce;}
+.border-top-dashed{margin-top:30px;border-top:1px dashed #d9d9d9;}
+.odetails-addressee{width:100%;margin:0 auto;padding-bottom:20px;overflow:hidden;border-bottom:1px solid #d9d9d9;}
+.odetails-addressee li{width:33%;float:left;overflow:hidden;line-height:30px;font-size:14px;}
+.odetails-orderonfors{width:100%;overflow:hidden;font-size:14px;border:1px solid #ccc;}
+.odetails-orderonfors tr th{background-color:#f5f5f5;}
+.odetails-orderonfors tr td,.odetails-orderonfors tr th{padding:9px 10px;border:1px solid #ccc;text-align:center;}
+.odo-pic{width:65px;display:inline;margin:5px 12px 0;float:left;overflow:hidden;text-align:center;}
+.odo-pic img{max-width:63px;max-height:68px;border:1px solid #dfdfdf;}
+.odo-pic img:hover{border-color:#fb6e52;}
+.odetails-orderonfors .odo-desc{width:225px;float:left;overflow:hidden;word-wrap:break-word;text-align:left;}
+.odetails-orderonfors .odo-desc .odo-spec span{margin-right:10px;}
+/*2015-08-0303运单详情]]*/

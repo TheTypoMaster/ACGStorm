@@ -1,0 +1,57 @@
+/*
+ * Time：2015-07-03
+ * Author: zxy
+ * Version: 20150703
+ * 转运首页样式
+*/
+/*2015-05-28主体内容样式 start*/
+.transitBanner{width:100%;margin:0 auto;overflow:hidden;clear:both;float:none;}
+.transitBanner a{position:relative;}
+.tbBan01{height:900px;position:relative;background:url(/images/site/home/transitBanner01.jpg) no-repeat top center;
+	-webkit-background-size:cover;
+	background-size:cover;
+	/*filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="/images/site/home/transitBanner01.jpg",sizingMethod='scale');*/
+}
+.tbBan02{height:1000px;background:url(/images/site/home/transitBanner02.jpg) no-repeat top center;
+	-webkit-background-size:cover;
+	background-size:cover;
+	/*filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="/images/site/home/transitBanner02.jpg",sizingMethod='scale');*/
+}
+.tbBan03{height:1000px;background:url(/images/site/home/transitBanner03.jpg) no-repeat top center;
+	-webkit-background-size:cover;
+	background-size:cover;
+	/*filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="/images/site/home/transitBanner03.jpg",sizingMethod='scale');*/
+}
+.tbBan04{height:1000px;background:url(/images/site/home/transitBanner04.jpg) no-repeat top center;
+	-webkit-background-size:cover;
+	background-size:cover;
+	/*filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="/images/site/home/transitBanner04.jpg",sizingMethod='scale');*/
+}
+.tbnnContents2{width:900px;margin:22% auto 0;_margin:20% auto 0;overflow:hidden;text-align:center;}
+.tbbcTitles2{width:100%;overflow:hidden;font-size:54px;font-weight:600;}
+.tbbcCourse{margin:60px auto;display:inline-block;overflow:hidden;}
+.tbbcCourse a{margin:0 1em 0 0;padding:15px 35px;display:inline-block;overflow:hidden;font-size:22px;line-height:24px;
+border:1px solid #ff5837;-moz-border-radius:5px;-webkit-border-radius:5px;border-radius:5px;*behavior:url(ie-css3.htc);}
+.tbbca1{float:left;}
+.tbbca2{float:right;}
+.tbbca2 i{width:24px;height:24px;display:inline-block;*display:inline;*zoom:1;margin-right:7px;vertical-align:-3px;background:url(/images/site/home/transitIcons01.png) no-repeat -113px -2px;}
+.tbbNotices{width:100%;position:absolute;bottom:0;left:0;margin:0 auto;overflow:hidden;background:#fff;filter:alpha(opacity=70);-moz-opacity:0.7;-khtml-opacity:0.7;opacity:0.7;zoom:1;}
+.tbbnmIcon{width:65px;height:40px;display:inline-block;float:left;overflow:hidden;line-height:40px;}
+.tbbnmIcon i{padding:5px 10px;margin-right:5px;vertical-align:middle;background:url(/images/site/home/transitIcons01.png) no-repeat -143px -3px;}
+.tbbnMarquee{width:1090px;height:40px;margin:0 auto;display:inline-block;float:left;overflow:hidden;}
+.tbbnMarquee a{margin-right:20px;color:#333;}
+.tbbnMarquee a:hover{color:#fb6e52;}
+.tbbnMarquee .redColor{color:red;font-weight:600;}
+.mqbNot{width:100%;margin:0;overflow:hidden;}
+.mqbNot li{width:100%;height:40px;line-height:40px;margin:0;overflow:hidden;}
+.mqbnMore{float:right;overflow:hidden;line-height:40px;font-size:16px;color:#fb6e52;}
+.tbbContents{width:685px;margin:45% 10px auto;_margin:30% 10px auto;overflow:hidden;}
+.tbbContents p,.tbbContents a{overflow:hidden;clear:both;color:#fff;}
+.tbbcTitles{font-size:46px;font-weight:600;}
+.tbbcDescriptions{margin-top:10px;font-size:16px;line-height:2em;}
+.tbbcExperience{width:120px;margin:20px 0;padding:10px 10px;display:block;vertical-align:middle;text-align:center;font-size:18px;border:1px solid #fff;}
+.tbbContents a.tbbcExperience:hover{color:#fff;}
+.appeals{width:100%;margin:0 auto;overflow:hidden;background:#fafafa;}
+.appeals p{width:1200px;margin:35px auto;overflow:hidden;font-size:34px;text-align:center;}
+/*2015-05-28主体内容样式 end*/
+.footer_adv{display:none;}

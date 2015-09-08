@@ -1,0 +1,90 @@
+/*
+ * Author: zxy
+ * Version: 20150703
+ *2015-06-02响应式布局样式
+ */
+@media screen and (max-width:1200px) {
+	/*头部及底部*/
+	.webTips{width:770px;}
+	.header,.footer_mid,.footer_news .footer-notes,.footer_adv,.partner{width:800px;}
+	.wsnItemsRight li{padding:10px 5px;}
+	.webnav_lists li{padding:0;}
+	.lsSearch{width:555px;}
+	.site-help ul li{margin:0 0 15px 99px;}
+	.contact-info{width:100%;float:none;overflow:hidden;}
+	.contact-info img{float:left;margin-right:25px;}
+	.contact-info p,.fciMail{float:left;}
+	.contact-info p.mt18{margin:0 20px 0 0;}
+	.contact-info span{float:left;}
+	.contact-info .share-wrap{float:left;}
+	
+	/*首页主体内容*/
+	.tbBan01{height:600px;}
+	.tbBan02,.tbBan03,.tbBan04{height:666px;}
+	.wrap,.navWrap,.appeals p{width:800px;}
+	.tbnnContents2{width:96%;}
+	.tbbcTitles2{font-size:3.375em;}
+	/*.navigations li a{padding:0 1.2em;font-size:1.2em;}*/
+	.tbbnMarquee{width:685px;}
+	.appeals p{font-size:2em;}
+	.tbbContents{width:82%;}
+	.tbbcTitles{font-size:2.75em;}
+	.tbbcDescriptions{font-size:1.175em;}	
+}
+@media screen and (max-width:800px) {
+	/*头部及底部*/
+	.webTips{width:455px;}
+	.header,.footer_mid,.footer_news .footer-notes,.footer_adv,.partner{width:485px;}
+	.wsnItemsRight,.lsSearch,.otherDevices{float:none;}
+	.lsSearch{width:100%;margin:10px auto;}
+	.lssText{width:375px;font-size:1em;}
+	.lssButton{width:100px;}
+	.wsnItemsRight li{padding:6px 6px;}
+	.webnav_lists li{padding:0;}
+	.wsnItemsRight .site_map .map_menu_title{margin-top:0;padding:6px 6px;}
+	.wsnItemsRight .menu_hover .website_navigation{width:485px;top:28px;right:-424px;}
+	.website_navigation .menu_boxs2{border-right:none;}
+	.login_register_boxs{top:28px !important;}
+	.site-help ul li{margin:0 0 15px 13px;}
+	.contact-info img,.contact-info p{margin-right:15px;}
+	
+	/*首页主体内容*/
+	.tbBan01{height:545px;}
+	.tbBan02,.tbBan03,.tbBan04{height:606px;}
+	.wrap,.navWrap,.appeals p{width:485px;}
+	.navigations li.navLast{float:left;}
+	.tbbcTitles2{font-size:2.125em;}
+	.tbbcCourse{margin:40px auto 0;}
+	.tbbcCourse a{padding:10px 15px;font-size:1.2em;}
+	.tbbcCourse a i{vertical-align:-6px;}
+	.tbbnMarquee{width:375px;}
+	.tbbContents{width:440px;}
+	.mqbnMore{font-size:1.275em;}
+}
+@media screen and (max-width:485px) {
+	/*头部及底部*/
+	.webTips{width:250px;}
+	.header,.footer_mid,.footer_news .footer-notes,.footer_adv,.partner{width:280px;}
+	.lssbBorder{border:none;text-align:center;}
+	.lssText{width:250px;border:2px solid #ff5837;}
+	.lssButton{width:250px;margin:10px 0;float:left !important;border:2px solid #ff5837;}
+	.wsnItemsRight .menu_hover .website_navigation{width:270px;top:28px;right:0;}
+	.website_navigation .webnav_boxs{border-right:none;}
+	.site-help ul li{margin:0 15px 15px 0;}
+	.footer_news .footer-notes ul li {margin:0 12px 5px;}
+	.contact-info p.mt18{margin-top:18px;}
+	
+	/*首页主体内容*/
+	.tbbcCourse a{padding:6px;}
+	.tbBan01{height:450px;}
+	.tbBan02,.tbBan03,.tbBan04{height:500px;}
+	.wrap,.navWrap,.appeals p{width:280px;}
+	.tbbcTitles2{font-size:1.4em;}
+	
+	.tbbcDescriptions{font-size:1em;}
+	.navigations li a{padding:0 10px;font-size:12px;}
+	.tbbnMarquee{width:170px;}
+	.appeals p{font-size:1.25em;}
+	.tbbContents{width:270px;}
+	.tbbcTitles{font-size:1.625em;}
+}
