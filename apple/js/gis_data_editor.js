@@ -19,7 +19,7 @@ function closeGISEditor() {
 }
 
 /**
- * Prepares the HTML recieved via AJAX.
+ * Prepares the HTML received via AJAX.
  */
 function prepareJSVersion() {
     // Change the text on the submit button

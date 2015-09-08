@@ -45,7 +45,7 @@ OpenLayers.Handler.Box = OpenLayers.Class(OpenLayers.Handler, {
      * control - {<OpenLayers.Control>} 
      * callbacks - {Object} An object containing a single function to be
      *                          called when the drag operation is finished.
-     *                          The callback should expect to recieve a single
+     *                          The callback should expect to receive a single
      *                          argument, the point geometry.
      * options - {Object} 
      */

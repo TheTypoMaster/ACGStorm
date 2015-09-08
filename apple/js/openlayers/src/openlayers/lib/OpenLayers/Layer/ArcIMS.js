@@ -219,7 +219,7 @@ OpenLayers.Layer.ArcIMS = OpenLayers.Class(OpenLayers.Layer.Grid, {
      *     request.
      * scope - {Object} The scope of the callback method.
      * prop - {String} The name of the property in the scoped object to 
-     *     recieve the image url.
+     *     receive the image url.
      * callback - {Function} Function to call when image url is retrieved.
      */
     getURLasync: function(bounds, scope, prop, callback) {
@@ -253,7 +253,7 @@ OpenLayers.Layer.ArcIMS = OpenLayers.Class(OpenLayers.Layer.Grid, {
                 
                 scope[prop] = this.getUrlOrImage(arcxml.image.output);
 
-                // call the callback function to recieve the updated property on the
+                // call the callback function to receive the updated property on the
                 // scoped object
                 callback.apply(scope);
             },
@@ -345,7 +345,7 @@ OpenLayers.Layer.ArcIMS = OpenLayers.Class(OpenLayers.Layer.Grid, {
      * options - {Object} Object with non-default properties to set on the layer.
      *     Supported properties are buffer, callback, scope, and any other
      *     properties applicable to the ArcXML format.  Set the 'callback' and
-     *     'scope' for an object and function to recieve the parsed features
+     *     'scope' for an object and function to receive the parsed features
      *     from ArcIMS.
      */
     getFeatureInfo: function(geometry, layer, options) {
