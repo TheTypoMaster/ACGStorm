@@ -1,0 +1,105 @@
+@charset "UTF-8";
+/*
+ * @author:zxy
+ * @version:20150723101620
+ */
+/*邀请规则[[*/
+.main-contentbox{width:100%;margin:15px auto;overflow:Hidden;clear:both;}
+.greybg-fontsize16{padding:8px 5px;background:#eee;font-size:16px;font-weight:600;}
+.promoter-links{margin:23px auto;overflow:hidden;}
+.promoter-links label{line-height:38px;font-size:16px;}
+.promoter-links input{width:655px;height:38px;margin:0 15px 0 5px;padding:0 10px;border:2px solid #fb6e52;}
+.promoter-links .mainBg{width:120px;height:36px;display:inline-block;*display:inline;zoom:1;background:#fb6e52;color:#fff;
+border:1px solid #fb6e52;line-height:36px;text-align:center;font-size:16px;
+-moz-border-radius:6px;-webkit-border-radius:6px;border-radius:6px;}
+.promoter-links .mainBg:hover{background:#ff5837;color:#fff;}
+.contentbox-infors{width:100%;margin:0 auto;overflow:hidden;}
+.contentbox-infors h6{margin:30px auto 20px;font-size:14px;font-weight:600;}
+.contentbox-infors p{margin-bottom:10px;font-size:14px;line-height:24px;}
+/*邀请规则]]*/
+
+/*奖励详情[[*/
+.greybg_border{width:100%;margin:10px auto;padding:30px 0;overflow:hidden;background:#f2f2f2;border:1px solid #ddd;text-align:center;}
+.greybgboxs{min-height:165px;_height:165px;margin:0 auto;display:inline-block;*display:inline;zoom:1;overflow:hidden;background:#f5f5f5;
+-moz-box-shadow:5px 5px 5px #c9c8c8;-webkit-box-shadow:5px 5px 5px #c9c8c8;box-shadow:5px 5px 5px #c9c8c8;}
+.gboxs_title{margin:0 auto;overflow:hidden;font-size:14px;}
+.gboxs_orangebg{padding:10px 0;overflow:hidden;background:#fb6e52;color:#fff;}
+.gboxs_greybg{padding:10px 0;overflow:hidden;background:#dcdcdc;}
+.gboxs_money{margin:40px auto 0;overflow:hidden;font-size:30px;color:#444;white-space:nowrap;text-overflow:ellipsis;}
+.margin_left10{margin-left:10px;}
+.width220{width:220px;overflow:hidden;}
+.width285{width:285px;overflow:hidden;}
+.width345{width:345px;overflow:hidden;}
+.gboxs_fgx1{padding:10px 0;float:left;border-left:1px solid #b5b5b5;}
+.gboxs_fgx2{margin:10px 0;float:left;padding:50px 0;display:inline-block;*display:inline;zoom:1;border-left:1px solid #ddd;}
+.gbox_data_year{margin:10px 25px 0;padding:3px 13px;display:inline-block;*display:inline;zoom:1;float:left;overflow:hidden;
+background:#fb6e52;color:#fff;font-size:16px;-moz-border-radius:5px;-webkit-border-radius:5px;border-radius:5px;}
+.gbox_data_month{clear:both;float:none;font-size:50px;color:#fb6e52;}
+.gbox_data_month sub{font-size:18px;vertical-align:0px;}
+.promoter_count{width:100%;margin:10px auto;border:1px solid #ddd;}
+.promoter_count thead tr th{padding:9px 0;background:#f2f2f2;font-size:14px;}
+.promoter_count tr td{padding:9px 0;border:1px solid #ddd;text-align:center;font-size:14px;}
+.promoter_count_select{padding:2px 0;-moz-border-radius:2px;-webkit-border-radius:2px;border-radius:2px;}
+.promoter_count_friend{width:14px;height:19px;margin-right:5px;display:inline-block;*display:inline;zoom:1;overflow:hidden;
+background:url(/images/site/common/promoter_icon.png) no-repeat 0 0;vertical-align:-3px;}
+.reward_date{margin:5px auto 0;overflow:hidden;}
+.reward_date select{margin:0 5px;padding:3px 7px;border:1px solid #ddd;-moz-border-radius:3px;-webkit-border-radius:3px;border-radius:3px;font-family:"Microsoft YaHei",微软雅黑,"Microsoft JhengHei",华文细黑,STHeiti,MingLiu;cursor:pointer;}
+.reward_date select option{background-color:#fff;color:#333;}
+.reward_date select .time_option{color:#fb6e52;}
+.reward_date .reward_date_money{margin-top:8px;font-size:30px;}
+/*奖励详情[[*/
+
+/*提现查询[[*/
+.withdraw_query{width:100%;position:relative;margin:35px auto 15px;}
+.withdraw_query label{font-size:14px;}
+.wq_data_icon{width:20px;height:20px;margin:0 5px 0 30px;display:inline-block;*display:inline;zoom:1;overflow:hidden;
+background:url(/images/site/common/promoter_icon.png) no-repeat -24px 0;vertical-align:-3px;}
+.withdraw_query input[type="text"],.withdraw_query select{margin:0 5px;padding:7px 10px;border:1px solid #ddd;-moz-border-radius:3px;-webkit-border-radius:3px;border-radius:3px;}
+.wq_submit{padding:7px 25px;background:#fb6e52;color:#fff;border:1px solid #e04d2f;-moz-border-radius:3px;-webkit-border-radius:3px;border-radius:3px;}
+.wq_submit:hover{background:#ff5837;}
+.withdraw_query .text_date{background:url(/images/site/common/promoter_icon.png) no-repeat 160px -24px;}
+/*提现查询]]*/
+
+/*奖励提现[[*/
+.border_radius{-moz-border-radius:3px;-webkit-border-radius:3px;border-radius:3px;}
+.awardcash-box{margin:0 40px;overflow:hidden;}
+.adb-lines{width:100%;margin:20px auto 0;overflow:hidden;font-size:14px;clear:both;}
+.abd-money{font-size:20px;color:#fb6e52;}
+.abd-ways .abdw-method{margin-left:15px;display:inline-block;*display:inline;zoom:1;padding:6px 37px;background:#f2f2f2;
+border:1px solid #999;}
+.abd-ways .active{background:#fb6e52;border-color:#e04d2f;color:#fff;}
+.abd-wayicons span{width:166px;height:56px;position:relative;margin-right:20px;display:block;zoom:1;float:left;overflow:hidden;
+background:url(/images/site/common/rewardcash_icon.jpg) no-repeat;}
+.abd-wayicons .active{border:2px solid #fb6e52;}
+.abd-wayicons .abdwi01{background-position:0 0;}
+.abd-wayicons .abdwi02{background-position:0 -66px;}
+.abd-wayicons .active .abdselect_icon{width:14px;height:14px;position:absolute;right:0;bottom:0;display:block;
+overflow:hidden;background:url(/images/site/common/rewardcash_icon.jpg) no-repeat 0 -132px;}
+.abd-wayicons .abdwi-infors{float:left;line-height:28px;}
+.cash-money{padding:6px 0 6px 5px;margin:0 5px;border:1px solid #ddd;}
+.cash-apply{padding:6px 30px;background:#fbfbfb;border:1px solid #999;}
+/*奖励提现]]*/
+
+/*添加支付宝[[*/
+.withdraw-add{width:100%;margin:0 auto;overflow:hidden;clear:both;}
+.wa-steps-title{width:460px;margin:6px 0;overflow:hidden;}
+.wa-steps-title .wast-chars{width:33%;margin:0 auto;float:left;overflow:hidden;}
+.wa-steps-title .text-align-center{text-align:center;text-indent:20px;}
+.text-align-right{text-align:right;}
+.wa-steps-icon{width:450px;height:34px;margin:0 10px;display:block;overflow:hidden;background:url(/images/site/common/withdraw_icon.png) no-repeat;}
+.wasi01{background-position:0 0;}
+.wasi02{background-position:0 -34px;}
+.wasi03{background-position:0 -68px;}
+.wa-content{width:100%;margin:65px auto;overflow:hidden;}
+.wa-content p{margin-bottom:10px;overflow:hidden;}
+.wac-title{font-size:16px;font-weight:bold;}
+.hint_icon{width:14px;height:14px;margin:0 6px 0 0;display:inline-block;*display:inline;zoom:1;overflow:hidden;vertical-align:middle;background:url(/images/site/common/rewardcash_icon.jpg) no-repeat -30px -132px;}
+.wac-hint{font-size:14px;}
+.wac-cash-method{width:100%;margin:20px auto 0;overflow:hidden;}
+.wac-cash-method label{font-size:14px;}
+.wac-cash-method .wac-cm-label{width:130px;line-height:30px;text-align:right;display:block;float:left;overflow:hidden;}
+.wac-cash-method .cash-money{padding:6px 5px;}
+.wac-cash-method  input{border-color:#b3b3b3;}
+.wa-content-success{width:460px;margin:65px 0;overflow:hidden;text-align:center;}
+.hide{display:none;}
+/*添加支付宝]]*/

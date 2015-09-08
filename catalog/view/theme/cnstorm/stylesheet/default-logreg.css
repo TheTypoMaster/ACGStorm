@@ -1,0 +1,200 @@
+@charset "utf-8";
+/* CSS Document */
+.login_bg {/*height:598px;*/ width: 100%; overflow: hidden; }
+.login_bg .login { min-height: 900px; }
+.login_bg .login .login_left { float: left; margin-left: 34px; width: 638px; }
+.login_bg .login .login_left img { display: inline-block; margin: 68px; }
+.login_bg .login .login_cont { float: left; position: relative; width: 471px; background: #fff; color: #333 }
+.login_bg .login .login_cont .login_top { height: 408px; border: 1px solid #c9c9c9; border-bottom: none }
+.login_bg .login .login_cont h3 { font-size: 25px; margin: 22px 0 0 28px; }
+#login { margin-left: 32px; }
+#login .login_input, #reg .login_input, #pwd_form .login_input, #safety_pwd .login_input { float: left; margin-top: 40px; position: relative }
+#safety_pwd .login_input { width: 100% }
+#login .login_input .error_promt, #pwd_form .login_input .error_promt, #reg .login_input .error, #reg .login_input .empty, #reg .login_input .exist { position: absolute; top: -36px; left: 18px; background: #fde9e3; width: 257px; height: 28px; padding-left: 6px; border: 1px solid #fb6e52; color: #fb6e52; line-height: 28px; }
+#reg .login_input .error, #reg .login_input .empty, #reg .login_input .exist { width: 258px; height: 32px; top: 0; left: 309px; line-height: 32px; }
+#reg .login_input .error_txt { line-height: 16px; }
+#pwd_form .login_input .right_promt { position: absolute; left: 405px; top: 7px; background: url(../images/ico.png) no-repeat -388px -1532px; height: 15px; width: 15px; }
+#pwd_form .login_input .error_promt { width: 298px; left: 404px; top: 0 }
+#login .login_input .error_promt em, #pwd_form .login_input .error_promt em, #reg .login_input .error em, #reg .login_input .empty em, #reg .login_input .exist em { background: url(../images/ico.png) no-repeat -1px -1397px; padding-left: 15px; display: inline-block; }
+#login .login_input .error_promt em { background-position: -1px -1393px; }
+#pwd_form .login_input .error_promt em { background-position: -1px -1392px; }
+#reg .login_input .error em { display: inline-block; background-position: -1px -1391px; }
+#reg .login_input .empty em { display: inline-block; background-position: -1px -1421px; }
+#reg .login_input .exist em { display: inline-block; background-position: -1px -1450px; }
+#login .login_input .login_txt, #reg .login_input .login_txt, #pwd_form .login_input .login_txt, #safety_pwd .login_input .login_txt { float: left; width: 54px; font-size: 18px; color: #333; text-align: right; font-family: "微软雅黑" }
+#safety_pwd .login_input .login_txt { width: 90px; }
+#login .login_input .input, #reg .login_input .input, #pwd_form .login_input .input, #safety_pwd .login_input .input { float: left; width: 218px; height: 29px; line-height: 29px; border: 1px solid #a6a6a6; font-size: 15px; margin-left: 9px; text-indent: 5px; }
+#reg .login_input .input { height: 32px; }
+#safety_pwd .login_input .input { width: 298px; color: #b2b2b2; font-size: 12px; }
+#safety_pwd .login_input .error, .discount_safety .change_email .user_email_new .error, .shipping_addr .write_addr .addr .error { height: 23px; padding: 7px 7px 6px 6px; _padding: 6px 6px 0 6px; background: #ffffe3; border: 1px solid #ffcc99; color: #545454; position: relative; margin-left: 10px; }
+.shipping_addr .write_addr .addr .error { right: 0; top: 0; height: 17px; padding: 5px 7px 6px 6px; display: none }
+.shipping_addr .write_addr .addr .top_57 { top: -57px; }
+#safety_pwd .login_input .error em, .discount_safety .change_email .user_email_new .error em, .shipping_addr .write_addr .addr .error em { background: url(../images/ico.png) no-repeat -137px -1560px; padding-left: 18px; }
+#safety_pwd .login_input .error i, .discount_safety .change_email .user_email_new .error i, .shipping_addr .write_addr .addr .error i { background: url(../images/ico.png) no-repeat -1px -1680px; position: absolute; display: block; width: 6px; height: 8px; top: 6px; left: -6px; _left: 5px; }
+.discount_safety .change_email .user_email_new .illegal_email { width: 580px; margin-left: 152px; height: 46px; display: inline-block; line-height: 46px; padding-left: 54px; font-size: 20px; color: #333; background: url(../images/icon_small.png) no-repeat -5px 0 }
+#reg #email_list { width: 218px; border: 1px solid #d2d2d2; background: #fff; left: 82px; position: absolute; top: 32px; min-height: 30px; }
+#login .login_input .code_letter, #reg .login_input .code_letter, #pwd_form .login_input .code_letter, #safety_pwd .login_input .code_letter { float: left; width: 86px; height: 30px; border: 1px solid #a0a0a0; margin-left: 9px; }
+#safety_pwd .login_input .code_letter { width: 158px; color: #B2B2B2; text-indent: 5px; line-height: 29px; }
+#login .login_input .forgot_psw, #reg .login_input .forgot_psw { color: #85c143; font-size: 12px; line-height: 31px; padding-left: 6px; }
+#login .login_input .code_pic, #reg .login_input .code_pic, #pwd_form .login_input .code_pic, #safety_pwd .login_input .code_pic { float: left; margin-left: 6px; }
+#login .login_input .change_code, #reg .login_input .change_code, #pwd_form .login_input .change_code { float: left; color: #333; font-size: 12px; line-height: 31px; padding-left: 17px; }
+#login .login_input .change_code a, #reg .login_input .change_code a, #pwd_form .login_input .change_code a { color: #85c143 }
+#safety_pwd .login_input .change_code { width: 56px; display: inline-block; font-size: 12px; margin-left: 12px; }
+#safety_pwd .login_input .change_code a { color: #296BCE }
+#login .login_btn { float: left; width: 100%; margin: 25px 0 0 63px; }
+#login .login_btn input { width: 111px; height: 32px; font-family: "微软雅黑"; cursor: pointer; border: 1px solid #df4e31; color: #fff; line-height: 29px; text-align: center; background: #fb6e52; font-size: 20px; }
+.login_bg .register {/*min-height:575px;*/ width: 1042px; }
+.login_bg .register .reg_cont { width: 1042px; margin: 0 auto; overflow: hidden;/*position:relative;float:left;*/ }
+.login_bg .reg_cont .reg_left { width: 410px;/*width:663px;*/ float: left; padding-bottom: 20px; }
+.login_bg .reg_cont .reg_left h3 { color: #333333; font-size: 25px; font-family: "微软雅黑"; margin: 38px 0 0 30px; }
+.login_bg .reg_cont .reg_right { margin: 0 90px; overflow: hidden; float: left;/*height:345px;margin-top:90px;border-left:1px solid #d7d7d7;*/ }
+.login_bg .reg_cont .reg_right p { width: 323px; height: 290px; margin: 16px 0 0 26px; background: url(../images/reg_r_bg.jpg) no-repeat; color: #000; text-indent: -9999px; overflow: hidden; font-size: 0; }
+.login_bg .register .reg_cont .reg_success { font-family: "微软雅黑"; margin-left: 242px; margin-top: 100px; padding-bottom: 80px; }
+.register .reg_cont .reg_success .congrats {/*color:#fb6e52;*/ font-size: 30px; background: url(../images/ico.png) no-repeat -1px -1577px; padding-left: 39px; }
+.register .reg_cont .reg_success .email_check { width: 100%; margin-top: 15px; display: block; color: #333; font-size: 14px; }
+.register .reg_cont .reg_success .email_check em, .register .reg_cont .reg_success .email_check a { color: #fb6e52 }
+.register .reg_cont .reg_success .reasons { width: 590px; height: 90px; background: #f7fcf4; border: 1px solid #7a7a7a; line-height: 26px; text-indent: 8px; margin-top: 15px; }
+.register .reg_cont .reg_success .reasons dt { color: #fb6e52; font-size: 20px; margin-top: 22px; }
+.register .reg_cont .reg_success .reasons dd { color: #333; margin-top: 10px; }
+.register .reg_cont .reg_success .reasons dd a { color: #fb6e52; background: url(../images/ico.png) no-repeat -386px -1492px; display: inline-block; padding-left: 10px; }
+.register .reg_cont .reg_success .check_btn { height: 34px; margin-top: 20px; padding: 0 28px; display: inline-block; border: 1px solid #ff5837; background: #fb6e52; font-size: 20px; text-align: center; line-height: 34px; color: #fff; }
+.register .reg_cont .reg_success .check_btn:hover { text-decoration: none; background: #ff5837; border-color: #f60; }
+.register .psw_back { float: left; height: 527px; margin: 33px auto 0; position: relative; width: 1088px; }
+.register .psw_back .psw_head { width: 1088px; border-bottom: 1px solid #c9c9c9; padding-bottom: 15px; }
+.register .psw_back .psw_head span { color: #333; font-size: 25px; font-family: "微软雅黑" }
+.register .psw_back .psw_conts .pwd_step1 { display: inline-block; background: url(../images/step_bg.png) no-repeat 0 -131px; width: 897px; height: 28px; margin: 27px 0 0 96px; }
+.register .psw_back .psw_conts .pwd_step2 { display: inline-block; background: url(../images/step_bg.png) no-repeat 0 -170px; width: 897px; height: 28px; margin: 27px 0 0 96px; }
+.register .psw_back .psw_conts .pwd_step3 { display: inline-block; background: url(../images/step_bg.png) no-repeat 0 -209px; width: 897px; height: 28px; margin: 27px 0 0 96px; }
+.register .psw_back .psw_conts .pwd_step4 { display: inline-block; background: url(../images/step_bg.png) no-repeat 0 -255px; width: 897px; height: 28px; margin: 27px 0 0 96px; }
+#pwd_form { margin: 50px 0 0 332px; }
+#pwd_form .new_pwd { color: #85c143; font-size: 18px; line-height: 34px; text-indent: 100px; }
+.psw_conts .about_pwd { float: left; margin: 90px 0 0 100px; }
+.psw_conts .about_pwd dt { color: #333; font-size: 15px; }
+.psw_conts .about_pwd dd { color: #666 }
+#pwd_form .login_input { width: 756px; margin-top: 17px; }
+#pwd_form .login_input .input { width: 298px; _margin-left: -230px; }
+#pwd_form .login_input .login_txt { width: 90px; }
+#pwd_form .login_input .pwd_btn, #pwd_form .login_input .pwd_btn_hover { width: 111px; color: #f0fbed; font-size: 20px; height: 32px; text-align: center; line-height: 32px; margin: 38px 0 0 100px; cursor: pointer }
+#pwd_form .login_input .pwd_btn { background: #6ac229; border: 1px solid #59a71e; _margin: 38px 0 0 -230px; }
+#pwd_form .login_input .pwd_btn_hover { background: #5cb41c; border: 1px solid #4a9413 }
+#pwd_form .pwd_demands { color: #c0c0c0; font-size: 12px; font-family: "微软雅黑"; float: left; margin-left: 100px; _margin-left: 50px; line-height: 28px; height: 33px; }
+#pwd_form p { font-family: "微软雅黑"; color: #333 }
+#pwd_form .login_email { font-size: 22px; color: #333; margin-top: 109px; }
+#pwd_form .login_email a, #pwd_form .send_email a { color: #85c143 }
+#pwd_form .send_email { font-size: 18px; color: #333 }
+#pwd_form .send_email a { background: url(../images/ico.png) no-repeat -280px -1492px; width: 160px; display: inline-block; }
+#pwd_form .set_pwd { background: url(../images/ico.png) no-repeat -555px -1260px; padding-left: 70px; font-family: "微软雅黑" }
+#pwd_form .set_pwd li { color: #333; font-size: 15px; line-height: 31px; }
+#pwd_form .set_pwd li.set_txt { color: #333333; font-size: 22px; }
+#pwd_form .set_pwd li a { color: #85c143 }
+#reg .login_input {/*width:660px;*/ width: 100%; margin: 18px 0 0 72px; }
+#reg .login_input .login_txt { width: 73px; }
+#reg .login_input .reg_btn, #reg .login_input .reg_btn_hover { width: 173px; height: 34px; font-family: "微软雅黑"; cursor: pointer; color: #f0fbed; font-size: 20px; text-align: center; line-height: 31px; border-radius: 3px; margin-left: 80px; _margin-left: 10px; }
+#reg .login_input .reg_btn { background: #6ac229; border: 1px solid #59a71e }
+#safety_pwd .login_input .reg_btn { background: #fb6e52; border: 1px solid #e04d2f; width: 98px; height: 33px; font-size: 16px; text-align: center; color: #fff; border-radius: 3px; margin-left: 98px; cursor: pointer }
+#reg .login_input .reg_btn_hover { background: #5cb41c; border: 1px solid #4a9413 }
+#reg .login_input .reg_check { line-height: 21px; margin-left: 82px; _line-height: 30px; }
+#reg .login_input .li_checkbox { margin-top: 5px; float: left }
+#reg .login_input .input_promt { width: 258px; height: 32px; border: 1px solid #d2d2d2; color: #666; font-size: 12px; position: absolute; right: 86px; display: none }
+#reg .login_input span.input_promt { line-height: 32px; }
+#reg .login_input span.no_lineheight { line-height: 15px; font-size: 12px; }
+#reg .login_input span.no_lineheight em { background: url(../images/ico.png) no-repeat -384px -1554px; display: inline-block; }
+#reg .login_input .input_promt em { background: url(../images/ico.png) no-repeat -384px -1554px; height: 21px; padding-left: 20px; display: inline-block; }
+.login_cont .coperation { float: left; margin: 25px 0 0 47px; }
+.login_cont .coperation dt { display: inline-block; }
+.login_cont .coperation dd { display: inline-block; margin-left: 9px; }
+.login_cont .coperation dd a { display: inline-block; background: url(../images/ico.png) no-repeat; }
+.login_cont .coperation a.xinlang { background-position: -388px -1460px; width: 24px; height: 19px; }
+.login_cont .coperation a.qq { background-position: -388px -1410px; width: 19px; height: 19px; }
+.login_cont .login_bott { position: absolute; background: url(../images/login_bott.jpg) no-repeat; width: 471px; height: 82px; left: 0; color: #333; font-size: 15px; text-align: center; padding-top: 20px; }
+.login_cont .login_bott a { color: #85c143; padding-left: 12px; }
+.redcolor { color: red; }
+.gree { background: url("../images/regok.png") no-repeat; display: inline-block; line-height: 25px; height: 25px; width: 130px; color: green; }
+/*2015-06-08登录、注册、注册成功页面基本样式 starts*/
+.backHome { margin-top: 44px; float: right; }
+#checkCode { width: 110px; height: 40px; margin: 0 0 0 10px; float: left; display: block; overflow: hidden; text-align: center; line-height: 40px; font-weight: bold; font-family: Arial; font-style: italic; font-size: 24px; letter-spacing: 7px; }
+.loginLogo { width: 225px; height: 69px; margin: 0 auto; float: left; display: block; overflow: hidden; background: url(../images/ico.png) no-repeat 0 -27px; }
+.logoWrap { width: 998px; height: 120px; z-index: 1000; background: white; }
+.reg_com { display: inline-block; border-top: 1px dotted #EAEAEA; padding-top: 10px; margin: 18px 0 0 98px; width: 100%; }
+.reg_com h1 { font-size: 12px; margin-bottom: 10px; }
+.user_sayhi { width: 338px; height: 50px; float: left; margin-bottom: 10px; }
+.user_sayhiface { width: 58px; height: 58px; float: left; border: 1px solid #CCC; border-radius: 50%; }
+.user_sayhiname { width: 100px; overflow: hidden; font-weight: bold; color: #000; }
+.user_sayhiinfo { margin-left: 80px; margin-right: 18px; }
+.user_sayhidate { max-height: 18px; float: right; color: #ccc; overflow: hidden; }
+.user_sayhicontent p { height: 38px; overflow: hidden; }
+.user_sayhicontent img { width: 58px; height: 58px; display: none; border: 1px solid #CCC; }
+.mainWrap { width: 980px; margin: 0 auto; float: none; overflow: hidden; clear: both; }
+.loginwMargins { margin: 50px auto; }
+.logregLeft {max-width:575px; margin: 0 auto; overflow: hidden; float: left; }
+.co-login{margin-left:68px;font-size:18px;margin-top:18px;}
+.loginRight { width: 530px; height: 35px; margin: 34px auto 0; float: right; overflow: hidden; background: url(/images/site/login/register_01.jpg) no-repeat top center; font-size: 0; }
+.loginForms { width: 330px; margin: 0 auto; float: right; overflow: hidden; }
+.lfTops { width: 100%; margin: 0 auto 20px; overflow: hidden; }
+.lfTops h3 { float: left; overflow: hidden; font-size: 18px; }
+.lfTops p { float: right; margin-top: 5px; text-align: right; }
+.lfTops p a { color: #fb6e52; }
+.lfcSplits { width: 100%; margin: 0 auto 26px; position: relative; clear: both; }
+.lfcSplits input { width: 308px; height: 38px; padding: 0 10px; overflow: hidden; line-height: 38px; border: 1px solid #ccc; font-family: "Microsoft YaHei", 微软雅黑, "Microsoft JhengHei", 华文细黑, STHeiti, MingLiu; }
+.lfcsp { width: 100%; margin: 0 auto; overflow: hidden; clear: both; }
+.lfcsp a { margin: 0 auto; display: block; float: left; overflow: hidden; }
+.lfcSplits input.code_letter { width: 120px; float: left; }
+.change_code { margin: 3px 0 0 10px; display: block; float: left; overflow: hidden; }
+.change_code a { color: #fb6e52; }
+.lfcSplits .reg_check input.li_checkbox { width: 13px; height: 13px; padding: 0; vertical-align: -3px; *vertical-align:middle;
+}
+.reg_check label a b, .lfcsForget a.forgot_psw, .forgetForms .ffRestlogin { color: #2a7bd6; }
+.lfcSplits input.reg_btn { width: 100%; padding: 0; border: 1px solid #ce3d1f; background: #fb6e52; color: #fff; font-size: 16px; text-indent: 0; }
+.lfcSplits input.reg_btn:hover { background: #ff5837; }
+.lfcSplits .redcolor, .error-box { position: absolute; top: 44px; left: 0; display: block; overflow: hidden; }
+.loginForms #login { margin: 0 auto; }
+.lfcsCooperate { width: 28em; margin: 0 auto 25px; float: left; overflow: hidden; }
+.lfcsCooperate a { height: 35px; width: 100px; margin-top: 10px; display: inline-block; float: left; overflow: hidden; background: url(/images/site/login/login_fast_new.png) no-repeat; }
+.lfcsCooperate a.sina { margin-right: 12px; background-position: 0 -160px; }
+.lfcsCooperate a.qq { margin-right: 12px; background-position: 0 -120px; }
+.lfcsCooperate a.wechat { background-position: 0 -200px; }
+.lfcsForget { float: right; overflow: hidden; }
+.error-box, .error_txt em { color: red; }
+.error_txt em { background: url(../images/ico.png) no-repeat -1px -1397px; padding-left: 15px; }
+.congrats em { color: #fb6e52; }
+.loginformRight { width: 380px; margin: 0 auto; float: right; overflow: hidden; }
+.lrfTop { width: 100%; height: 6px; margin: 0 auto; overflow: hidden; background: url(/images/site/login/loginBg_01.jpg) no-repeat top center; }
+.lrfBotttom { width: 100%; height: 6px; margin: 0 auto; overflow: hidden; background: url(/images/site/login/loginBg_03.jpg) no-repeat top center; }
+.lrfmiddle { width: 100%; margin: 0 auto; overflow: hidden; background: url(/images/site/login/loginBg_02.jpg) repeat-y top center; }
+.logregForms { width: 330px; margin: 0 auto; padding: 25px 25px 0 25px; overflow: hidden; }
+/*2015-06-08登录、注册、注册成功页面基本样式 end*/
+
+/*2015-06-09忘记密码 starts*/
+.forgetBoxs { width: 800px; margin: 20px auto; overflow: hidden; clear: both; float: none; }
+.forgetBoxs .forgetIcon { width: 780px; height: 30px; margin: 0 auto; display: block; overflow: hidden; background: url(/images/site/login/forgetIcon.png) no-repeat top center; }
+.forgetBoxs .fiStep01 { background-position: 0 0; }
+.forgetBoxs .fiStep02 { background-position: 0 -40px; }
+.forgetBoxs .fiStep03 { background-position: 0 -80px; }
+.forgetBoxs .fiStep04 { background-position: 0 -120px; }
+.fisDepicts { width: 800px; margin: 10px auto; display: inline-block; ; overflow: hidden; }
+.fisDepicts label { width: 84px; margin: 0 150px 0 0; display: block; float: left; overflow: hidden; font-size: 14px; }
+.fisDepicts label.fistrLast { margin-right: 0; text-align: right; }
+.textRight { text-align: right; }
+.textCenter { text-align: center; }
+.forgetForms { width: 330px; margin: 20px auto; overflow: hidden; }
+.lfcsp input.ffCodes { width: 83px; margin: 0 0 0 10px; float: left; overflow: hidden; font-size: 24px; color: red; }
+.forgetForms input.forgetBtn { width: 155px; }
+.forgetBtn { width: 153px; height: 40px; display: block; border: 1px solid #ce3d1f; background: #fb6e52; color: #fff; font-size: 16px; line-height: 40px; text-align: center; }
+.forgetBtn:hover { background: #ff5837; color: #fff; }
+.ffSends { width: 260px; margin: 0 auto 15px; padding-left: 60px; overflow: hidden; color: #555; font-size: 14px; font-weight: 600; line-height: 24px; background: url(/images/site/login/forgetIcon_02.jpg) no-repeat 0 0; }
+.ffSends b { font-size: 20px; }
+.hide { display: none; }
+/*2015-06-09忘记密码 end*/
+
+/*2015-06-11补录邮箱 starts*/
+.none { display: none; }
+.rm_top { margin-top: 38px; overflow: hidden; }
+.logo { background: url("/catalog/view/theme/cnstorm/images/ico.png"); background-position: 0 -27px; width: 225px; height: 69px; float: left; }
+.small_main { margin-left: 168px; }
+.send_style .icon_bold { background: url(/images/site/login/icon_normal.gif) no-repeat center -70px; height: 50px; width: 100px; }
+.send_style .msg_bold { color: #FF6600; font-size: 14px; font-weight: bold; padding-bottom: 0px; line-height: 22px; }
+.table_edit { margin: 0 0 50px 198px; }
+.mailbox { font-size: 18px; }
+.input_border { width: 198px; height: 18px; padding: 8px; border-radius: 5px; border: 1px solid #ccc; }
+.input_send { margin-top: 8px; border: 1px solid #ce3d1f; background: #fb6e52; color: #fff; font-size: 16px; width: 80px; height: 29px; }
+/*2015-06-11补录邮箱 end*/

@@ -1,0 +1,34 @@
+<?php
+// HTTP
+define('HTTP_SERVER', 'http://www.acgstorm.com/orange/');
+define('HTTP_CATALOG', 'http://www.acgstorm.com/');
+
+// HTTPS
+define('HTTPS_SERVER', 'http://www.acgstorm.com/orange/');
+define('HTTPS_CATALOG', 'http://www.acgstorm.com/');
+
+// DIR
+define('DIR_APPLICATION', '/var/www/html/orange/');
+define('DIR_SYSTEM',   '/var/www/html/system/');
+define('DIR_DATABASE', '/var/www/html/system/database/');
+define('DIR_LANGUAGE', '/var/www/html/orange/language/');
+define('DIR_TEMPLATE', '/var/www/html/orange/view/template/');
+define('DIR_CONFIG', '/var/www/html/system/config/');
+define('DIR_IMAGE', '/var/www/html/image/');
+define('DIR_CACHE', '/var/www/html/system/cache/');
+define('DIR_DOWNLOAD', '/var/www/html/download/');
+define('DIR_LOGS', '/var/www/html/system/logs/');
+define('DIR_CATALOG', '/var/www/html/catalog/');
+
+// DB
+define('DB_DRIVER', 'mysql');
+define('DB_HOSTNAME', 'localhost');
+define('DB_USERNAME', 'root');
+define('DB_PASSWORD', 'CNstorm520!');
+define('DB_DATABASE', 'cnstorm_alpha');
+define('DB_PREFIX', 'oc_');
+
+// bae push
+define('BAE_API_KEY', 'Wkabgkvm6HCc092TZLXqt4KN');
+define('BAE_SECRET_KEY', 'nSpq1vSFiGNaH1ZLzMTf7EkTjf7IbFZl');
+?>

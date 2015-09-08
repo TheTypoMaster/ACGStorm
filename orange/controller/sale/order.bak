@@ -1,0 +1,2193 @@
+<?php
+
+class ControllerSaleOrder extends Controller {
+
+    private $error = array();
+
+    public function index() {
+        $this->language->load('sale/order');
+        $this->document->setTitle($this->language->get('heading_title'));
+        $this->load->model('sale/order');
+        $this->getList();
+    }
+
+    public function pcReq() {
+        $this->load->model('sale/order');
+        //file_put_contents('1.log', $_POST['order_id']."\r\n",FILE_APPEND);
+        //file_put_contents('1.log', $_POST['sign']."\r\n",FILE_APPEND);
+        $this->model_sale_order->updatePcReq($_POST['order_id'], $_POST['sign']);
+        $msg = array('msg' => '请求成功');
+        echo json_encode($msg);
+    }
+
+    public function weight() {
+        $this->language->load('sale/order');
+        $this->document->setTitle($this->language->get('heading_title'));
+        $this->load->model('sale/order');
+        $Adult_Value = $this->request->get ['AdultObj'];
+        $order_product_id = $this->request->get ['order_product_id'];
+
+        $result = $this->model_sale_order->weight_chage($order_product_id, $Adult_Value);
+        if ($result) {
+            $result = 1;
+        } else {
+            $result = 0;
+        }
+        $this->response->setOutput($result);
+    }
+
+    public function express() {
+        $this->language->load('sale/order');
+        $this->document->setTitle($this->language->get('heading_title'));
+        $this->load->model('sale/order');
+        $Adult_Value = $this->request->get ['Adult_Value'];
+        $order_product_id = $this->request->get ['order_product_id'];
+
+        $result = $this->model_sale_order->express_chage($order_product_id, $Adult_Value);
+        if ($result) {
+            $result = 1;
+        } else {
+            $result = 0;
+        }
+        $this->response->setOutput($result);
+    }
+
+    public function tracking() {
+        $this->language->load('sale/order');
+        $this->document->setTitle($this->language->get('heading_title'));
+        $this->load->model('sale/order');
+        $tracking = $this->request->get ['tracking'];
+        $order_product_id = $this->request->get ['order_product_id'];
+
+        $result = $this->model_sale_order->ajax_update_tracking($order_product_id, $tracking);
+        if ($result) {
+            $result = 1;
+        } else {
+            $result = 0;
+        }
+        $this->response->setOutput($result);
+    }
+
+    public function addState() {
+        $this->language->load('sale/order');
+        $this->document->setTitle($this->language->get('heading_title'));
+        $this->load->model('sale/order');
+
+        $order_product_id = $this->request->get ['order_product_id'];
+        $order_newstate = $this->request->get ['state'];
+        $colorid = $this->request->get ['colorid'];
+        $results = $this->model_sale_order->ajax_update_orderstues($order_product_id, $colorid, $order_newstate);
+
+        $this->response->setOutput($result [0] ['order_id']);
+    }
+
+    public function insert() {
+        $this->language->load('sale/order');
+        $this->document->setTitle($this->language->get('heading_title'));
+        $this->load->model('sale/order');
+        if (($this->request->server ['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
+            $this->model_sale_order->addOrder($this->request->post);
+
+            $this->session->data ['success'] = $this->language->get('text_success');
+            $url = '';
+            if (isset($this->request->get ['filter_order_id'])) {
+                $url .= '&filter_order_id=' . $this->request->get ['filter_order_id'];
+            }
+            if (isset($this->request->get ['filter_customer'])) {
+                $url .= '&filter_customer=' . urlencode(html_entity_decode($this->request->get ['filter_customer'], ENT_QUOTES, 'UTF-8'));
+            }
+
+            if (isset($this->request->get ['filter_order_status_id'])) {
+                $url .= '&filter_order_status_id=' . $this->request->get ['filter_order_status_id'];
+            }
+
+            if (isset($this->request->get ['filter_total'])) {
+                $url .= '&filter_total=' . $this->request->get ['filter_total'];
+            }
+
+            if (isset($this->request->get ['filter_date_added'])) {
+                $url .= '&filter_date_added=' . $this->request->get ['filter_date_added'];
+            }
+
+            if (isset($this->request->get ['filter_date_modified'])) {
+                $url .= '&filter_date_modified=' . $this->request->get ['filter_date_modified'];
+            }
+
+            if (isset($this->request->get ['sort'])) {
+                $url .= '&sort=' . $this->request->get ['sort'];
+            }
+
+            if (isset($this->request->get ['order'])) {
+                $url .= '&order=' . $this->request->get ['order'];
+            }
+
+            if (isset($this->request->get ['page'])) {
+                $url .= '&page=' . $this->request->get ['page'];
+            }
+
+            $this->redirect($this->url->link('sale/order', 'token=' . $this->session->data ['token'] . $url, 'SSL'));
+        }
+
+        $this->getForm();
+    }
+
+    public function update() {
+        $this->load->model('sale/customer');
+        $this->load->model('sale/order');
+        $this->load->model('record/record');
+
+        if (($this->request->server ['REQUEST_METHOD'] == 'POST')) {
+
+            if (isset($this->request->post ['uname'])) {
+                $uname = $this->request->post ['uname'];
+            }
+            if (isset($this->request->post ['oid'])) {
+                $oid = $this->request->post ['oid'];
+            }
+            if (isset($this->request->post ['oid2'])) {
+                $oid2 = $this->request->post ['oid2'];
+            }
+            if (isset($this->request->post ['purl'])) {
+                $goodsurl = $this->request->post ['purl'];
+            }
+            if (isset($this->request->post ['pname'])) {
+                $goodsname = $this->request->post ['pname'];
+            }
+            if (isset($this->request->post ['pcost'])) {
+                $goodsprice = $this->request->post ['pcost'];
+            }
+            if (isset($this->request->post ['pqty'])) {
+                $goodsnum = $this->request->post ['pqty'];
+            }
+            if (isset($this->request->post ['pfreight'])) {
+                $sendprice = $this->request->post ['pfreight'];
+            }
+            if (isset($this->request->post ['pcolor'])) {
+                $goodscolor = $this->request->post ['pcolor'];
+            }
+            if (isset($this->request->post ['psize'])) {
+                $goodssize = $this->request->post ['psize'];
+            }
+            if (isset($this->request->post ['pnote'])) {
+                $pnote = $this->request->post ['pnote'];
+            }
+            if (isset($this->request->post ['o_pcost'])) {
+                $oldgoodsprice = $this->request->post ['o_pcost'];
+            }
+            if (isset($this->request->post ['o_pqty'])) {
+                $oldgoodsnum = $this->request->post ['o_pqty'];
+            }
+            if (isset($this->request->post ['o_pfreight'])) {
+                $oldsendprice = $this->request->post ['o_pfreight'];
+            }
+
+            $old_price = $oldgoodsprice * $oldgoodsnum;
+            $new_price = $goodsprice * $goodsnum;
+            $tempmoney = 0;
+            $tempmoney2 = 0;
+
+            // 处理价格和运费修改扣除用户相应金额账户余额
+
+            if ($goodsnum != $oldgoodsnum || $goodsprice != $oldgoodsprice) {
+
+                // 调整数量或单价对应商品价格调整
+                $tempmoney = round(($old_price - $goodsprice * $goodsnum), 2);
+
+                $tempgoodsn = 0;
+                $tempgoodsn = round($oldgoodsnum - $goodsnum);
+
+                $result = $this->model_sale_customer->getuid_money($uname);
+                $user_balance = $result ['money'];
+                $cid = $result ['customer_id'];
+
+                $newbalance = round($user_balance + $tempmoney, 2);
+
+                if ($newbalance >= 0 && $tempmoney > "-3") {
+                    $this->model_sale_customer->editBalance($newbalance, $uname); // 扣去账户余额
+
+                    $note = "调整商品<a href=\'" . $goodsurl . "\' target=\'_blank\'>《" . $goodsname . "》</a>数量：" . + $tempgoodsn . "价格：" . $tempmoney . "订单ID:" . $oid;
+
+                    $data = array(
+                        'uid' => $cid,
+                        'uname' => $uname,
+                        'type' => 1,
+                        'action' => 5,
+                        'money' => $tempmoney,
+                        'accountmoney' => $newbalance,
+                        'remark' => $note
+                    );
+
+                    $this->model_record_record->addRecord($data); // 写记录
+                } else {
+                    $query = $this->db->query("SELECT o.email,op.producturl,op.name FROM " . DB_PREFIX . "order o LEFT JOIN " . DB_PREFIX . "order_product op ON o.order_id=op.order_id WHERE o.order_id = '" . (int) $oid2 . "'");
+                    $email = $query->row ['email'];
+                    $producturl = $query->row ['producturl'];
+                    $productname = $query->row ['name'];
+
+                    $message = "<div style='background-color:#f7f7f7;text-align:center;padding:30px 0;margin:0;width:100%;'>
+                            <div style = 'max-width:800px;margin:0 auto;text-align:left;padding:0;background-color:#ffffff;'>
+                            <div style = 'margin:0;padding:0;text-align:center;'><img src = 'http://www.acgstorm.com/image/data/logo.png' width = '226' height = '52' style = 'margin:45px 0;'></div>
+                            <div style = 'padding:0;margin:0;'>
+                            <div style = 'margin:0 3px;background-color:#fff;padding:0;'>
+                            <div style = 'padding:0 5%;margin:0;word-wrap:break-word;color:#818181;font-size:1em;font-family:helvetica,Arial,NanumGothic,Dotum'>
+                            <h3 style = 'margin:0 0 20px 0;padding-top:10px;font-weight:normal;'>您好, " . $uname . " <span style = 'font-size:22px;color:#FF6d85;'>♥</span></h3>
+                            <p><b style = 'color:#000;'>CNstorm正等待您以下订单的操作指示！</b></p>
+                            <div style = 'width:98%; margin:0 auto; padding:10px; border:1px solid #E8CCCC'>订单号为$oid2 的订单实际销售价格略高于支付金额，为保障您的消费权益，我们需依据您的指示（取消或补差价购买）以处理该订单（<a href = 'http://www.acgstorm.com/order.html' target = '_blank' style = 'color:#fb6e52;font-weight: bold'>查看订单</a>）</br>
+                        订单详情：<a href='$producturl' target = '_blank'>$productname</a>   
+                            </div>
+                            <p style = 'margin:20px 0;'>CNstorm致力于提升海外留学生及华人生活体验，让您在海外生活，也能如同国内一样方便。接下来您可以：</p>
+                            1、 继续在中国购物网站挑选商品，并与此次商品合并寄至您指定的海外地址(<a href = 'http://www.acgstorm.com/procurement.html' style = 'color:#fb6e52;font-size:1em;text-decoration:none;font-weight: bold' target = '_blank'>代购</a>)
+                            <p>2、 您自行准备商品并邮寄至CNstorm中国大陆地址，通过CNstorm极具性价比的国际物流系统，与本次商品合并快运至您的海外地址。（<a href = 'http://www.acgstorm.com/selfshopping.html' style = 'color:#fb6e52;font-size:1em;text-decoration:none;font-weight: bold' target = '_blank'>代寄</a>）</p>
+                            <p>3、 亲人朋友生日，重大节日，纪念日... CNstorm都能为您下单，将礼物寄至您指定的国内地址(<a href = 'http://www.acgstorm.com/international-express.html' style = 'color:#fb6e52;font-size:1em;text-decoration:none;font-weight: bold' target = '_blank'>国内送</a>)。</p>
+                            <p>4、 立刻勾选您要邮寄的商品提交运送(<a href = 'http://www.acgstorm.com/order.html' style = 'color:#fb6e52;font-size:1em;text-decoration:none;font-weight: bold' target = '_blank'>查看订单并提交</a>)</p>
+                            <p>我们为您提供的所有服务都同时接受外币及人民币支付，让您不必再为支付感到烦恼。有关支付方式介绍请<a href = 'http://www.acgstorm.com/index.php?route=help/help&cid=40' style = 'color:#fb6e52;font-size:1em;text-decoration:none;font-weight: bold' target = '_blank'>点此查阅</a>。</p>
+                            <p style = 'margin:68px 0 40px 0;'>我们衷心感谢您选择并使用CNstorm为您服务！</p>
+                            <p style = 'margin:20px 0 40px 0;'>CNstorm客户关怀部</p>
+                            <p style = 'margin:0;text-align:center;'><a href = 'http://www.weibo.com/cnstorm' style = 'margin-right:10px;text-decoration:none;color:#fb6e52;' target = '_blank'>Weibo</a> | <a href = 'http://www.acgstorm.com/index.php?route=app/appload' style = 'margin:0 10px;text-decoration:none;color:#fb6e52;' target = '_blank'>Ios App</a> | <a href = 'http://www.acgstorm.com/help.html' style = 'margin-left:10px;text-decoration:none;color:#fb6e52;' target = '_blank'>FAQ</a></p>
+                            </div>
+                            </div>
+                            </div>
+                            <div style = 'background-color:#ffffff;height:70px;padding:0;'></div>
+                            <div style = 'text-align:center;background-color:#f7f7f7;padding-top:20px;'>
+                            <p style = 'color:#b1b1b1;font-size:.85em;'>如果您需要联系我们的客户服务小组，请访问我们的官网(<a href = 'www.acgstorm.com' target = '_blank' style = 'text-decoration:none;color:#fb6e52'>http://www.acgstorm.com</a>)点击右上角帮助中心与我们取得联系。</p>
+                            <p style = 'font-size:.7em;color:#818181;'>Copyright © 2014 CNstorm Co., Ltd. 2 Exhibition center, F518 Creative park, Shenzhen, China. All Rights Reserved.<br>
+                            <a href = 'http://www.acgstorm.com/help-agreement.html' style = 'text-decoration:none;color:#fb6e52;' target = '_blank'>Terms of Service</a> | <a href = 'http://www.acgstorm.com/help-privacy.html' style = 'text-decoration:none;color:#fb6e52;' target = '_blank'>Privacy Policy</a></p>
+                            </div>
+                            </div>
+                            </div>";
+
+                    $data = array(
+                        'sendto' => $email,
+                        'receiver' => $uname,
+                        'subject' => '您的CNstorm订单' . $oid2 . '差价提示邮件',
+                        'msg' => $message,
+                    );
+
+                    $this->load->model('tool/sendmail');
+                    $this->model_tool_sendmail->send($data);
+
+                    $this->model_sale_order->order_updat($oid2, "9");
+                }
+            }
+
+            if ($sendprice != $oldsendprice) {
+
+                // 商品运费调整
+                $tempmoney2 = round($oldsendprice - $sendprice, 2); // 计算运费调整
+
+                $result = $this->model_sale_customer->getuid_money($uname);
+                $user_balance = $result ['money'];
+                $cid = $result ['customer_id'];
+                $newbalance = round($user_balance + $tempmoney2, 2);
+
+                if ($newbalance >= 0) {
+                    $this->model_sale_customer->editBalance($newbalance, $uname); // 扣去账户余额
+
+                    $note = "调整商品<a href=\'" . $goodsurl . "\' target=\'_blank\'>《" . $goodsname . "》</a>运费：" . $tempmoney2 . "订单ID:" . $oid;
+
+                    $data = array(
+                        'uid' => $cid,
+                        'uname' => $uname,
+                        'type' => 1,
+                        'action' => 5,
+                        'money' => $tempmoney2,
+                        'accountmoney' => $newbalance,
+                        'remark' => $note
+                    );
+
+                    $this->model_record_record->addRecord($data); // 写记录
+                } else {
+                    $this->model_sale_order->order_updat($oid2, "9");
+                }
+            }
+
+            $arrayedit = array(
+                "order_id" => $oid2,
+                "producturl" => $goodsurl,
+                "name" => $this->Char_cv($goodsname),
+                "price" => round($goodsprice, 2),
+                "total" => round($new_price, 2),
+                "order_shipping" => $sendprice,
+                "quantity" => round($goodsnum),
+                "option_size" => $this->Char_cv($goodssize),
+                "option_color" => $this->Char_cv($goodscolor),
+                "note" => $this->Char_cv($pnote)
+            );
+
+            $tochange = $this->model_sale_order->order_modify($oid, $arrayedit);
+            echo json_encode($tochange);
+        }
+    }
+
+    function Char_cv($msg) {
+        return str_replace(array(
+            "\t",
+            '<',
+            '>',
+            "\r",
+            "\n",
+            '  '
+                ), array(
+            '',
+            '&lt;',
+            '&gt;',
+            '',
+            '',
+            '&nbsp; '
+                ), $msg);
+    }
+
+    public function update_order() {
+        $order_status_id = $this->request->post ['filter_order_status_id'];
+        $auction_id = $this->request->post ['auction_id'];
+
+        $this->language->load('sale/order');
+
+        $this->document->setTitle($this->language->get('heading_title'));
+
+        $this->load->model('sale/order');
+
+        if (isset($this->request->post ['selected']) && ($this->validateDelete())) {
+
+            foreach ($this->request->post ['selected'] as $order_id) {
+                if ($order_status_id != 0) {
+                    $this->model_sale_order->order_updat($order_id, $order_status_id);
+
+                    if ($order_status_id == 6) {
+                        $query = $this->db->query("SELECT o.customer_id,o.firstname,o.email,op.producturl,op.name FROM " . DB_PREFIX . "order o LEFT JOIN " . DB_PREFIX . "order_product op ON o.order_id=op.order_id WHERE o.order_id = '" . (int) $order_id . "'");
+                        $customer_id = $query->row ['customer_id'];
+                        $uname = $query->row ['firstname'];
+                        $email = $query->row ['email'];
+                        $producturl = $query->row ['producturl'];
+                        $productname = $query->row ['name'];
+
+                        $message = "<div style='background-color:#f7f7f7;text-align:center;padding:30px 0;margin:0;width:100%;'>
+                            <div style = 'max-width:800px;margin:0 auto;text-align:left;padding:0;background-color:#ffffff;'>
+                            <div style = 'margin:0;padding:0;text-align:center;'><img src = 'http://www.acgstorm.com/image/data/logo.png' width = '226' height = '52' style = 'margin:45px 0;'></div>
+                            <div style = 'padding:0;margin:0;'>
+                            <div style = 'margin:0 3px;background-color:#fff;padding:0;'>
+                            <div style = 'padding:0 5%;margin:0;word-wrap:break-word;color:#818181;font-size:1em;font-family:helvetica,Arial,NanumGothic,Dotum'>
+                            <h3 style = 'margin:0 0 20px 0;padding-top:10px;font-weight:normal;'>您好, " . $uname . " <span style = 'font-size:22px;color:#FF6d85;'>♥</span></h3>
+                            <p><b style = 'color:#000;'>我们已接收到您以下CNstorm订单包裹！</b></p>
+                            <div style = 'width:98%; margin:0 auto; padding:10px; border:1px solid #E8CCCC'>订单号为$order_id 的订单已完成检验并入库，请您留意并及时处理该订单（<a href = 'http://www.acgstorm.com/order.html' target = '_blank' style = 'color:#fb6e52;font-weight: bold'>查看订单</a>）</br>
+                        订单详情：<a href='$producturl' target = '_blank'>$productname</a>   
+                            </div>
+                            <p style = 'margin:20px 0;'>CNstorm致力于提升海外留学生及华人生活体验，让您在海外生活，也能如同国内一样方便。接下来您可以：</p>
+                            1、 继续在中国购物网站挑选商品，并与此次商品合并寄至您指定的海外地址(<a href = 'http://www.acgstorm.com/procurement.html' style = 'color:#fb6e52;font-size:1em;text-decoration:none;font-weight: bold' target = '_blank'>代购</a>)
+                            <p>2、 您自行准备商品并邮寄至CNstorm中国大陆地址，通过CNstorm极具性价比的国际物流系统，与本次商品合并快运至您的海外地址。（<a href = 'http://www.acgstorm.com/selfshopping.html' style = 'color:#fb6e52;font-size:1em;text-decoration:none;font-weight: bold' target = '_blank'>代寄</a>）</p>
+                            <p>3、 亲人朋友生日，重大节日，纪念日... CNstorm都能为您下单，将礼物寄至您指定的国内地址(<a href = 'http://www.acgstorm.com/international-express.html' style = 'color:#fb6e52;font-size:1em;text-decoration:none;font-weight: bold' target = '_blank'>国内送</a>)。</p>
+                            <p>4、 立刻勾选您要邮寄的商品提交运送(<a href = 'http://www.acgstorm.com/order.html' style = 'color:#fb6e52;font-size:1em;text-decoration:none;font-weight: bold' target = '_blank'>查看订单并提交</a>)</p>
+                            <p>我们为您提供的所有服务都同时接受外币及人民币支付，让您不必再为支付感到烦恼。有关支付方式介绍请<a href = 'http://www.acgstorm.com/index.php?route=help/help&cid=40' style = 'color:#fb6e52;font-size:1em;text-decoration:none;font-weight: bold' target = '_blank'>点此查阅</a>。</p>
+                            <p style = 'margin:68px 0 40px 0;'>我们衷心感谢您选择并使用CNstorm为您服务！</p>
+                            <p style = 'margin:20px 0 40px 0;'>CNstorm客户关怀部</p>
+                            <p style = 'margin:0;text-align:center;'><a href = 'http://www.weibo.com/cnstorm' style = 'margin-right:10px;text-decoration:none;color:#fb6e52;' target = '_blank'>Weibo</a> | <a href = 'http://www.acgstorm.com/index.php?route=app/appload' style = 'margin:0 10px;text-decoration:none;color:#fb6e52;' target = '_blank'>Ios App</a> | <a href = 'http://www.acgstorm.com/help.html' style = 'margin-left:10px;text-decoration:none;color:#fb6e52;' target = '_blank'>FAQ</a></p>
+                            </div>
+                            </div>
+                            </div>
+                            <div style = 'background-color:#ffffff;height:70px;padding:0;'></div>
+                            <div style = 'text-align:center;background-color:#f7f7f7;padding-top:20px;'>
+                            <p style = 'color:#b1b1b1;font-size:.85em;'>如果您需要联系我们的客户服务小组，请访问我们的官网(<a href = 'www.acgstorm.com' target = '_blank' style = 'text-decoration:none;color:#fb6e52'>http://www.acgstorm.com</a>)点击右上角帮助中心与我们取得联系。</p>
+                            <p style = 'font-size:.7em;color:#818181;'>Copyright © 2014 CNstorm Co., Ltd. 2 Exhibition center, F518 Creative park, Shenzhen, China. All Rights Reserved.<br>
+                            <a href = 'http://www.acgstorm.com/help-agreement.html' style = 'text-decoration:none;color:#fb6e52;' target = '_blank'>Terms of Service</a> | <a href = 'http://www.acgstorm.com/help-privacy.html' style = 'text-decoration:none;color:#fb6e52;' target = '_blank'>Privacy Policy</a></p>
+                            </div>
+                            </div>
+                            </div>";
+
+                        $data = array(
+                            'sendto' => $email,
+                            'receiver' => $uname,
+                            'subject' => '您的CNstorm订单' . $order_id . '已到货！',
+                            'msg' => $message
+                        );
+
+                        //手机推送消息
+                        $apps = $this->model_sale_order->getOnlineAppByCustomer($customer_id);
+                        if ($apps) {
+                            $custom_content = array(
+                                'order_id' => $order_id,
+                                'state' => 1
+                            );
+                            include_once(DIR_SYSTEM . 'baepush.class.php');
+                            $baepush = new Baepush();
+                            foreach ($apps as $app) {
+                                if ($app['device_type'] == 1) {//ios
+                                    $device_type = 4;
+                                } elseif ($app['device_type'] == 2) {//android
+                                    $device_type = 3;
+                                }
+                                $pm = array(
+                                    'push_type' => 1,
+                                    'user_id' => $app['user_id'],
+                                    'device_type' => $device_type,
+                                    'description' => '您的订单' . $order_id . '已入库，请下运单。',
+                                    'deploy_status' => 2,
+                                    'custom_content' => $custom_content
+                                );
+                                $baepush->push($pm);
+                            }
+                        }
+
+
+                        $this->load->model('tool/sendmail');
+                        $this->model_tool_sendmail->send($data);
+                    }
+                }
+                if ($auction_id != '') {
+                    $this->model_sale_order->order_updat2($order_id, $auction_id);
+                }
+            }
+
+            $this->session->data ['success'] = $this->language->get('text_success');
+
+            $url = '';
+
+            if (isset($this->request->get ['filter_order_id'])) {
+                $url .= '&filter_order_id=' . $this->request->get ['filter_order_id'];
+            }
+
+            if (isset($this->request->get ['filter_customer'])) {
+                $url .= '&filter_customer=' . urlencode(html_entity_decode($this->request->get ['filter_customer'], ENT_QUOTES, 'UTF-8'));
+            }
+
+            if (isset($this->request->get ['filter_order_status_id'])) {
+                $url .= '&filter_order_status_id=' . $this->request->get ['filter_order_status_id'];
+            }
+
+            if (isset($this->request->get ['filter_total'])) {
+                $url .= '&filter_total=' . $this->request->get ['filter_total'];
+            }
+
+            if (isset($this->request->get ['filter_date_added'])) {
+                $url .= '&filter_date_added=' . $this->request->get ['filter_date_added'];
+            }
+
+            if (isset($this->request->get ['filter_date_modified'])) {
+                $url .= '&filter_date_modified=' . $this->request->get ['filter_date_modified'];
+            }
+
+            if (isset($this->request->get ['sort'])) {
+                $url .= '&sort=' . $this->request->get ['sort'];
+            }
+
+            if (isset($this->request->get ['order'])) {
+                $url .= '&order=' . $this->request->get ['order'];
+            }
+
+            if (isset($this->request->get ['page'])) {
+                $url .= '&page=' . $this->request->get ['page'];
+            }
+            var_dump('11111111111111');
+            $this->redirect($this->url->link('sale/order', 'token=' . $this->session->data ['token'] . $url, 'SSL'));
+        }
+        var_dump('22222222222222');
+        $this->getList();
+    }
+
+    public function delete() {
+        $this->language->load('sale/order');
+
+        $this->document->setTitle($this->language->get('heading_title'));
+
+        $this->load->model('sale/order');
+
+        if (isset($this->request->post ['selected']) && ($this->validateDelete())) {
+            foreach ($this->request->post ['selected'] as $order_id) {
+                $this->model_sale_order->deleteOrder($order_id);
+                $this->openbay->deleteOrder($order_id);
+            }
+
+            $this->session->data ['success'] = $this->language->get('text_success');
+
+            $url = '';
+
+            if (isset($this->request->get ['filter_order_id'])) {
+                $url .= '&filter_order_id=' . $this->request->get ['filter_order_id'];
+            }
+
+            if (isset($this->request->get ['filter_customer'])) {
+                $url .= '&filter_customer=' . urlencode(html_entity_decode($this->request->get ['filter_customer'], ENT_QUOTES, 'UTF-8'));
+            }
+
+            if (isset($this->request->get ['filter_order_status_id'])) {
+                $url .= '&filter_order_status_id=' . $this->request->get ['filter_order_status_id'];
+            }
+
+            if (isset($this->request->get ['filter_total'])) {
+                $url .= '&filter_total=' . $this->request->get ['filter_total'];
+            }
+
+            if (isset($this->request->get ['filter_date_added'])) {
+                $url .= '&filter_date_added=' . $this->request->get ['filter_date_added'];
+            }
+
+            if (isset($this->request->get ['filter_date_modified'])) {
+                $url .= '&filter_date_modified=' . $this->request->get ['filter_date_modified'];
+            }
+
+            if (isset($this->request->get ['sort'])) {
+                $url .= '&sort=' . $this->request->get ['sort'];
+            }
+
+            if (isset($this->request->get ['order'])) {
+                $url .= '&order=' . $this->request->get ['order'];
+            }
+
+            if (isset($this->request->get ['page'])) {
+                $url .= '&page=' . $this->request->get ['page'];
+            }
+
+            $this->redirect($this->url->link('sale/order', 'token=' . $this->session->data ['token'] . $url, 'SSL'));
+        }
+
+        $this->getList();
+    }
+
+    protected function getList() {
+        if (isset($this->request->get ['filter_order_id'])) {
+            $filter_order_id = $this->request->get ['filter_order_id'];
+        } else {
+            $filter_order_id = null;
+        }
+
+        if (isset($this->request->get ['filter_customer'])) {
+            $filter_customer = $this->request->get ['filter_customer'];
+        } else {
+            $filter_customer = null;
+        }
+
+        if (isset($this->request->get ['filter_sn'])) {
+            $filter_sn = $this->request->get ['filter_sn'];
+        } else {
+            $filter_sn = null;
+        }
+
+        if (isset($this->request->get ['filter_order_status_id'])) {
+            $filter_order_status_id = $this->request->get ['filter_order_status_id'];
+        } else {
+            $filter_order_status_id = null;
+        }
+
+        if (isset($this->request->get ['filter_total'])) {
+            $filter_total = $this->request->get ['filter_total'];
+        } else {
+            $filter_total = null;
+        }
+
+        if (isset($this->request->get ['filter_date_added'])) {
+            $filter_date_added = $this->request->get ['filter_date_added'];
+        } else {
+            $filter_date_added = null;
+        }
+
+        if (isset($this->request->get ['filter_date_modified'])) {
+            $filter_date_modified = $this->request->get ['filter_date_modified'];
+        } else {
+            $filter_date_modified = null;
+        }
+
+        if (isset($this->request->get ['filter_product_name'])) {
+            $filter_product_name = $this->request->get ['filter_product_name'];
+        } else {
+            $filter_product_name = null;
+        }
+
+        if (isset($this->request->get ['sort'])) {
+            $sort = $this->request->get ['sort'];
+        } else {
+            $sort = 'o.order_id';
+        }
+
+        if (isset($this->request->get ['order'])) {
+            $order = $this->request->get ['order'];
+        } else {
+            $order = 'DESC';
+        }
+
+        if (isset($this->request->get ['page'])) {
+            $page = $this->request->get ['page'];
+        } else {
+            $page = 1;
+        }
+
+        $url = '';
+
+        if (isset($this->request->get ['filter_order_id'])) {
+            $url .= '&filter_order_id=' . $this->request->get ['filter_order_id'];
+        }
+
+        if (isset($this->request->get ['filter_customer'])) {
+            $url .= '&filter_customer=' . urlencode(html_entity_decode($this->request->get ['filter_customer'], ENT_QUOTES, 'UTF-8'));
+        }
+
+        if (isset($this->request->get ['filter_order_status_id'])) {
+            $url .= '&filter_order_status_id=' . $this->request->get ['filter_order_status_id'];
+        }
+
+        if (isset($this->request->get ['filter_total'])) {
+            $url .= '&filter_total=' . $this->request->get ['filter_total'];
+        }
+
+        if (isset($this->request->get ['filter_date_added'])) {
+            $url .= '&filter_date_added=' . $this->request->get ['filter_date_added'];
+        }
+
+        if (isset($this->request->get ['filter_date_modified'])) {
+            $url .= '&filter_date_modified=' . $this->request->get ['filter_date_modified'];
+        }
+
+        if (isset($this->request->get ['sort'])) {
+            $url .= '&sort=' . $this->request->get ['sort'];
+        }
+
+        if (isset($this->request->get ['order'])) {
+            $url .= '&order=' . $this->request->get ['order'];
+        }
+
+        if (isset($this->request->get ['page'])) {
+            $url .= '&page=' . $this->request->get ['page'];
+        }
+
+        $this->data ['breadcrumbs'] = array();
+
+        $this->data ['breadcrumbs'] [] = array(
+            'text' => $this->language->get('text_home'),
+            'href' => $this->url->link('common/home', 'token=' . $this->session->data ['token'], 'SSL'),
+            'separator' => false
+        );
+
+        $this->data ['breadcrumbs'] [] = array(
+            'text' => $this->language->get('heading_title'),
+            'href' => $this->url->link('sale/order', 'token=' . $this->session->data ['token'] . $url, 'SSL'),
+            'separator' => ' :: '
+        );
+
+        $this->data ['invoice'] = $this->url->link('sale/order/invoice', 'token=' . $this->session->data ['token'], 'SSL');
+        $this->data ['insert'] = $this->url->link('sale/order/insert', 'token=' . $this->session->data ['token'], 'SSL');
+        $this->data ['delete'] = $this->url->link('sale/order/delete', 'token=' . $this->session->data ['token'] . $url, 'SSL');
+        $this->data ['emali'] = $this->url->link('sale/contact', 'token=' . $this->session->data ['token'], 'SSL');
+        $this->data ['update_order'] = $this->url->link('sale/order/update_order', 'token=' . $this->session->data ['token'] . $url, 'SSL');
+        $this->data ['orders'] = array();
+
+        $data = array(
+            'filter_order_id' => $filter_order_id,
+            'filter_customer' => $filter_customer,
+            'filter_sn' => $filter_sn,
+            'filter_order_status_id' => $filter_order_status_id,
+            'filter_total' => $filter_total,
+            'filter_date_added' => $filter_date_added,
+            'filter_date_modified' => $filter_date_modified,
+            'filter_product_name' => $filter_product_name,
+            'sort' => $sort,
+            'order' => $order,
+            'start' => ($page - 1) * $this->config->get('config_admin_limit'),
+            'limit' => $this->config->get('config_admin_limit')
+        );
+
+        $order_total = $this->model_sale_order->getTotalOrders($data);
+
+        $results = $this->model_sale_order->getOrders($data);
+        //var_dump ( $results );exit ();
+        $express = $this->model_sale_order->express();
+        $this->data ['order_color'] = $this->language->get('order_color');
+        $this->data ['order_size'] = $this->language->get('order_size');
+        $this->data ['order_product_name'] = $this->language->get('order_product_name');
+        $this->data ['order_remark'] = $this->language->get('order_remark');
+        $this->data ['order_color_value2'] = $this->language->get('order_color_value2');
+        $this->data ['order_color_value'] = $this->language->get('order_color_value');
+        $this->data ['order_Sensitive'] = $this->language->get('order_Sensitive');
+        $this->data ['order_nameplate'] = $this->language->get('order_nameplate');
+        $this->data ['order_rethrowing'] = $this->language->get('order_rethrowing');
+        $this->data ['order_notrethrowing'] = $this->language->get('order_notrethrowing');
+        $this->data ['order_nonameplate'] = $this->language->get('order_nonameplate');
+        $this->data ['order_all_total'] = $this->language->get('order_all_total');
+        foreach ($results as $result) {
+            $action = array();
+            $action [] = array(
+                'text' => $this->language->get('text_view'),
+                'href' => $this->url->link('sale/order/info', 'token=' . $this->session->data ['token'] . '&order_id=' . $result ['order_id'] . $url, 'SSL')
+            );
+            if (strtotime($result ['date_added']) > strtotime('-' . (int) $this->config->get('config_order_edit') . ' day')) {
+                $action [] = array(
+                    'text' => $this->language->get('text_edit'),
+                    'href' => $this->url->link('sale/order/update', 'token=' . $this->session->data ['token'] . '&order_id=' . $result ['order_id'] . $url, 'SSL')
+                );
+            }
+            $product_str = array();
+            $product = $this->model_sale_order->getOrderProducts($result ['order_id']);
+            $product_total = $this->model_sale_order->sun_product_total($result ['order_id']);
+
+            foreach ($product as $key => $value) {
+
+                $order_product_id = $value ['order_product_id'];
+                $product_str [$order_product_id] ['name'] = $value ['name'];
+                $product_str [$order_product_id] ['producturl'] = $value ['producturl'];
+                $product_str [$order_product_id] ['product_id'] = $value ['product_id'];
+                $product_str [$order_product_id] ['price'] = $value ['price'];
+                $product_str [$order_product_id] ['quantity'] = $value ['quantity'];
+                $product_str [$order_product_id] ['total'] = $value ['total'];
+                $product_str [$order_product_id] ['payid'] = $value ['pay_id'];
+                $product_str [$order_product_id] ['order_product_id'] = $order_product_id;
+                $product_str [$order_product_id] ['order_sensitive'] = $value ['order_sensitive'];
+                $product_str [$order_product_id] ['order_branding'] = $value ['order_branding'];
+                $product_str [$order_product_id] ['order_huge'] = $value ['order_huge'];
+                $product_str [$order_product_id] ['express'] = $value ['express'];
+                $product_str [$order_product_id] ['weight'] = $value ['weight'];
+                $product_str [$order_product_id] ['color'] = $value ['option_color'];
+                $product_str [$order_product_id] ['size'] = $value ['option_size'];
+                $product_str [$order_product_id] ['text'] = $value ['note'];
+                $product_str [$order_product_id] ['tracking_number'] = $value ['kuaidi_no'];
+                if ($value ['uptime']) {
+                    $product_str [$order_product_id] ['uptime'] = date("Y-m-d h:i:s", $value ['uptime']);
+                }
+            }
+
+            $ordertotal = $product_total [0] ['ordertotal'] + $result ['order_shipping'];
+
+            $this->data ['orders'] [] = array(
+                'order_id' => $result ['order_id'],
+                'ordertotal' => $ordertotal,
+                'order_shipping' => $result ['order_shipping'],
+                'order_status_buy' => $result ['order_status_buy'],
+                'store_name' => $result ['store_name'],
+                'store_url' => $result ['store_url'],
+                'customer' => $result ['customer'],
+                'status' => $result ['status'],
+                'product' => $product_str,
+                'express' => $express,
+                'firstname' => $result ['firstname'],
+                'total' => $this->currency->format($result ['total'], $result ['currency_code'], $result ['currency_value']),
+                'date_added' => date("Y-m-d h:i:s", strtotime($result ['date_added'])),
+                'date_modified' => date("Y-m-d h:i:s", strtotime($result ['date_modified'])),
+                'uptime' => date("Y-m-d h:i:s", $result ['uptime']),
+                'selected' => isset($this->request->post ['selected']) && in_array($result ['order_id'], $this->request->post ['selected']),
+                'action' => $action,
+                'preq' => $result ['preq'],
+                'creq' => $result ['creq']
+            );
+        }
+
+        $this->data ['heading_title'] = $this->language->get('heading_title');
+
+        $this->data ['text_no_results'] = $this->language->get('text_no_results');
+        $this->data ['text_missing'] = $this->language->get('text_missing');
+
+        $this->data ['column_order_id'] = $this->language->get('column_order_id');
+        $this->data ['column_customer'] = $this->language->get('column_customer');
+        $this->data ['column_status'] = $this->language->get('column_status');
+        $this->data ['column_total'] = $this->language->get('column_total');
+        $this->data ['column_date_added'] = $this->language->get('column_date_added');
+        $this->data ['column_date_modified'] = $this->language->get('column_date_modified');
+        $this->data ['column_action'] = $this->language->get('column_action');
+
+        $this->data ['button_invoice'] = $this->language->get('button_invoice');
+        $this->data ['button_insert'] = $this->language->get('button_insert');
+        $this->data ['button_delete'] = $this->language->get('button_delete');
+        $this->data ['button_filter'] = $this->language->get('button_filter');
+        // 鑷繁寮?鍙戝墠鍙?
+
+        $this->data ['order_Information'] = $this->language->get('order_Information');
+        $this->data ['order_price'] = $this->language->get('order_price');
+        $this->data ['order_qty'] = $this->language->get('order_qty');
+        $this->data ['order_Payment'] = $this->language->get('order_Payment');
+        $this->data ['order_operating'] = $this->language->get('order_operating');
+        $this->data ['order_Number'] = $this->language->get('order_Number');
+        $this->data ['order_time'] = $this->language->get('order_time');
+        $this->data ['order_Buyers'] = $this->language->get('order_Buyers');
+
+        $this->data ['column_product'] = $this->language->get('column_product');
+        $this->data ['order_color'] = $this->language->get('order_color');
+        $this->data ['order_total'] = $this->language->get('order_total');
+
+        // 鑷繁寮?鍙戝悗鍙?
+        $this->data ['order_update2'] = $this->language->get('order_update2');
+        $this->data ['order_express_Select'] = $this->language->get('order_express_Select');
+        $this->data ['order_express_change'] = $this->language->get('order_express_change');
+        $this->data ['order_price'] = $this->language->get('order_price');
+        $this->data ['order_qty'] = $this->language->get('order_qty');
+        $this->data ['order_Id'] = $this->language->get('order_Id');
+        $this->data ['order_user'] = $this->language->get('order_user');
+        $this->data ['order_member'] = $this->language->get('order_member');
+        $this->data ['order_product'] = $this->language->get('order_product');
+        $this->data ['order_Business'] = $this->language->get('order_Business');
+        $this->data ['order_shipping'] = $this->language->get('order_shipping');
+        $this->data ['order_weight'] = $this->language->get('order_weight');
+        $this->data ['order_express_id'] = $this->language->get('order_express_id');
+        $this->data ['order_express_note'] = $this->language->get('order_express_note');
+        $this->data ['order_company'] = $this->language->get('order_company');
+        $this->data ['order_auction'] = $this->language->get('order_auction');
+        $this->data ['order_subtime'] = $this->language->get('order_subtime');
+        $this->data ['order_updatetime'] = $this->language->get('order_updatetime');
+        $this->data ['order_Status'] = $this->language->get('order_Status');
+        $this->data ['order_package'] = $this->language->get('order_package');
+        $this->data ['order_tag'] = $this->language->get('order_tag');
+        $this->data ['order_modification'] = $this->language->get('order_modification');
+        $this->data ['order_pending'] = $this->language->get('order_pending');
+        $this->data ['order_notSensitive'] = $this->language->get('order_notSensitive');
+        $this->data ['order_noLuxury'] = $this->language->get('order_noLuxury');
+
+        $this->data ['Order_number'] = $this->language->get('Order_number');
+        // $this->data['Order_price'] = $this->language->get('Order_price');
+        $this->data ['token'] = $this->session->data ['token'];
+
+        if (isset($this->error ['warning'])) {
+            $this->data ['error_warning'] = $this->error ['warning'];
+        } else {
+            $this->data ['error_warning'] = '';
+        }
+
+        if (isset($this->session->data ['success'])) {
+            $this->data ['success'] = $this->session->data ['success'];
+
+            unset($this->session->data ['success']);
+        } else {
+            $this->data ['success'] = '';
+        }
+
+        $url = '';
+
+        if (isset($this->request->get ['filter_order_id'])) {
+            $url .= '&filter_order_id=' . $this->request->get ['filter_order_id'];
+        }
+
+        if (isset($this->request->get ['filter_customer'])) {
+            $url .= '&filter_customer=' . urlencode(html_entity_decode($this->request->get ['filter_customer'], ENT_QUOTES, 'UTF-8'));
+        }
+
+        if (isset($this->request->get ['filter_order_status_id'])) {
+            $url .= '&filter_order_status_id=' . $this->request->get ['filter_order_status_id'];
+        }
+
+        if (isset($this->request->get ['filter_total'])) {
+            $url .= '&filter_total=' . $this->request->get ['filter_total'];
+        }
+
+        if (isset($this->request->get ['filter_date_added'])) {
+            $url .= '&filter_date_added=' . $this->request->get ['filter_date_added'];
+        }
+
+        if (isset($this->request->get ['filter_date_modified'])) {
+            $url .= '&filter_date_modified=' . $this->request->get ['filter_date_modified'];
+        }
+
+        if ($order == 'ASC') {
+            $url .= '&order=DESC';
+        } else {
+            $url .= '&order=ASC';
+        }
+
+        if (isset($this->request->get ['page'])) {
+            $url .= '&page=' . $this->request->get ['page'];
+        }
+
+        $this->data ['sort_order'] = $this->url->link('sale/order', 'token=' . $this->session->data ['token'] . '&sort=o.order_id' . $url, 'SSL');
+        $this->data ['sort_customer'] = $this->url->link('sale/order', 'token=' . $this->session->data ['token'] . '&sort=customer' . $url, 'SSL');
+        $this->data ['sort_status'] = $this->url->link('sale/order', 'token=' . $this->session->data ['token'] . '&sort=status' . $url, 'SSL');
+        $this->data ['sort_total'] = $this->url->link('sale/order', 'token=' . $this->session->data ['token'] . '&sort=o.total' . $url, 'SSL');
+        $this->data ['sort_date_added'] = $this->url->link('sale/order', 'token=' . $this->session->data ['token'] . '&sort=o.date_added' . $url, 'SSL');
+        $this->data ['sort_date_modified'] = $this->url->link('sale/order', 'token=' . $this->session->data ['token'] . '&sort=o.date_modified' . $url, 'SSL');
+
+        $url = '';
+
+        if (isset($this->request->get ['filter_order_id'])) {
+            $url .= '&filter_order_id=' . $this->request->get ['filter_order_id'];
+        }
+
+        if (isset($this->request->get ['filter_customer'])) {
+            $url .= '&filter_customer=' . urlencode(html_entity_decode($this->request->get ['filter_customer'], ENT_QUOTES, 'UTF-8'));
+        }
+
+        if (isset($this->request->get ['filter_order_status_id'])) {
+            $url .= '&filter_order_status_id=' . $this->request->get ['filter_order_status_id'];
+        }
+
+        if (isset($this->request->get ['filter_total'])) {
+            $url .= '&filter_total=' . $this->request->get ['filter_total'];
+        }
+
+        if (isset($this->request->get ['filter_date_added'])) {
+            $url .= '&filter_date_added=' . $this->request->get ['filter_date_added'];
+        }
+
+        if (isset($this->request->get ['filter_date_modified'])) {
+            $url .= '&filter_date_modified=' . $this->request->get ['filter_date_modified'];
+        }
+
+        if (isset($this->request->get ['sort'])) {
+            $url .= '&sort=' . $this->request->get ['sort'];
+        }
+
+        if (isset($this->request->get ['order'])) {
+            $url .= '&order=' . $this->request->get ['order'];
+        }
+
+        $pagination = new Pagination ();
+        $pagination->total = $order_total;
+        $pagination->page = $page;
+        $pagination->limit = $this->config->get('config_admin_limit');
+        $pagination->text = $this->language->get('text_pagination');
+        $pagination->url = $this->url->link('sale/order', 'token=' . $this->session->data ['token'] . $url . '&page={page}', 'SSL');
+
+        $this->data ['pagination'] = $pagination->render();
+
+        $this->data ['filter_order_id'] = $filter_order_id;
+        $this->data ['filter_customer'] = $filter_customer;
+        $this->data ['filter_order_status_id'] = $filter_order_status_id;
+        $this->data ['filter_total'] = $filter_total;
+        $this->data ['filter_date_added'] = $filter_date_added;
+        $this->data ['filter_date_modified'] = $filter_date_modified;
+        $this->data ['filter_product_name'] = $filter_product_name;
+
+        $this->load->model('localisation/order_status');
+        $this->data ['order_statuses'] = $this->model_localisation_order_status->getOrderStatuses();
+
+        $this->data ['sort'] = $sort;
+        $this->data ['order'] = $order;
+
+        $this->template = 'sale/order_list.tpl';
+        $this->children = array(
+            'common/header',
+            'common/footer'
+        );
+
+        $this->response->setOutput($this->render());
+    }
+
+    public function getForm() {
+        $this->load->model('sale/customer');
+
+        $this->data ['heading_title'] = $this->language->get('heading_title');
+
+        $this->data ['text_no_results'] = $this->language->get('text_no_results');
+        $this->data ['text_default'] = $this->language->get('text_default');
+        $this->data ['text_select'] = $this->language->get('text_select');
+        $this->data ['text_none'] = $this->language->get('text_none');
+        $this->data ['text_wait'] = $this->language->get('text_wait');
+        $this->data ['text_product'] = $this->language->get('text_product');
+        $this->data ['text_voucher'] = $this->language->get('text_voucher');
+        $this->data ['text_order'] = $this->language->get('text_order');
+
+        $this->data ['entry_store'] = $this->language->get('entry_store');
+        $this->data ['entry_customer'] = $this->language->get('entry_customer');
+        $this->data ['entry_customer_group'] = $this->language->get('entry_customer_group');
+        $this->data ['entry_firstname'] = $this->language->get('entry_firstname');
+        $this->data ['entry_lastname'] = $this->language->get('entry_lastname');
+        $this->data ['entry_email'] = $this->language->get('entry_email');
+        $this->data ['entry_telephone'] = $this->language->get('entry_telephone');
+        $this->data ['entry_fax'] = $this->language->get('entry_fax');
+        $this->data ['entry_order_status'] = $this->language->get('entry_order_status');
+        $this->data ['entry_comment'] = $this->language->get('entry_comment');
+        $this->data ['entry_affiliate'] = $this->language->get('entry_affiliate');
+        $this->data ['entry_address'] = $this->language->get('entry_address');
+        $this->data ['entry_company'] = $this->language->get('entry_company');
+        $this->data ['entry_company_id'] = $this->language->get('entry_company_id');
+        $this->data ['entry_tax_id'] = $this->language->get('entry_tax_id');
+        $this->data ['entry_address_1'] = $this->language->get('entry_address_1');
+        $this->data ['entry_address_2'] = $this->language->get('entry_address_2');
+        $this->data ['entry_city'] = $this->language->get('entry_city');
+        $this->data ['entry_postcode'] = $this->language->get('entry_postcode');
+        $this->data ['entry_zone'] = $this->language->get('entry_zone');
+        $this->data ['entry_zone_code'] = $this->language->get('entry_zone_code');
+        $this->data ['entry_country'] = $this->language->get('entry_country');
+        $this->data ['entry_product'] = $this->language->get('entry_product');
+        $this->data ['entry_option'] = $this->language->get('entry_option');
+        $this->data ['entry_quantity'] = $this->language->get('entry_quantity');
+        $this->data ['entry_to_name'] = $this->language->get('entry_to_name');
+        $this->data ['entry_to_email'] = $this->language->get('entry_to_email');
+        $this->data ['entry_from_name'] = $this->language->get('entry_from_name');
+        $this->data ['entry_from_email'] = $this->language->get('entry_from_email');
+        $this->data ['entry_theme'] = $this->language->get('entry_theme');
+        $this->data ['entry_message'] = $this->language->get('entry_message');
+        $this->data ['entry_amount'] = $this->language->get('entry_amount');
+        $this->data ['entry_shipping'] = $this->language->get('entry_shipping');
+        $this->data ['entry_payment'] = $this->language->get('entry_payment');
+        $this->data ['entry_voucher'] = $this->language->get('entry_voucher');
+        $this->data ['entry_coupon'] = $this->language->get('entry_coupon');
+        $this->data ['entry_reward'] = $this->language->get('entry_reward');
+        $this->data ['column_product'] = $this->language->get('column_product');
+        $this->data ['column_model'] = $this->language->get('column_model');
+        $this->data ['column_quantity'] = $this->language->get('column_quantity');
+        $this->data ['column_price'] = $this->language->get('column_price');
+        $this->data ['column_total'] = $this->language->get('column_total');
+        $this->data ['button_save'] = $this->language->get('button_save');
+        $this->data ['button_cancel'] = $this->language->get('button_cancel');
+        $this->data ['button_add_product'] = $this->language->get('button_add_product');
+        $this->data ['button_add_voucher'] = $this->language->get('button_add_voucher');
+        $this->data ['button_update_total'] = $this->language->get('button_update_total');
+        $this->data ['button_remove'] = $this->language->get('button_remove');
+        $this->data ['button_upload'] = $this->language->get('button_upload');
+        $this->data ['tab_order'] = $this->language->get('tab_order');
+        $this->data ['tab_customer'] = $this->language->get('tab_customer');
+        $this->data ['tab_payment'] = $this->language->get('tab_payment');
+        $this->data ['tab_shipping'] = $this->language->get('tab_shipping');
+        $this->data ['tab_product'] = $this->language->get('tab_product');
+        $this->data ['tab_voucher'] = $this->language->get('tab_voucher');
+        $this->data ['tab_total'] = $this->language->get('tab_total');
+
+        if (isset($this->error ['warning'])) {
+            $this->data ['error_warning'] = $this->error ['warning'];
+        } else {
+            $this->data ['error_warning'] = '';
+        }
+
+        if (isset($this->error ['firstname'])) {
+            $this->data ['error_firstname'] = $this->error ['firstname'];
+        } else {
+            $this->data ['error_firstname'] = '';
+        }
+
+        if (isset($this->error ['lastname'])) {
+            $this->data ['error_lastname'] = $this->error ['lastname'];
+        } else {
+            $this->data ['error_lastname'] = '';
+        }
+
+        if (isset($this->error ['email'])) {
+            $this->data ['error_email'] = $this->error ['email'];
+        } else {
+            $this->data ['error_email'] = '';
+        }
+
+        if (isset($this->error ['telephone'])) {
+            $this->data ['error_telephone'] = $this->error ['telephone'];
+        } else {
+            $this->data ['error_telephone'] = '';
+        }
+
+        if (isset($this->error ['payment_firstname'])) {
+            $this->data ['error_payment_firstname'] = $this->error ['payment_firstname'];
+        } else {
+            $this->data ['error_payment_firstname'] = '';
+        }
+
+        if (isset($this->error ['payment_lastname'])) {
+            $this->data ['error_payment_lastname'] = $this->error ['payment_lastname'];
+        } else {
+            $this->data ['error_payment_lastname'] = '';
+        }
+
+        if (isset($this->error ['payment_address_1'])) {
+            $this->data ['error_payment_address_1'] = $this->error ['payment_address_1'];
+        } else {
+            $this->data ['error_payment_address_1'] = '';
+        }
+
+        if (isset($this->error ['payment_city'])) {
+            $this->data ['error_payment_city'] = $this->error ['payment_city'];
+        } else {
+            $this->data ['error_payment_city'] = '';
+        }
+
+        if (isset($this->error ['payment_postcode'])) {
+            $this->data ['error_payment_postcode'] = $this->error ['payment_postcode'];
+        } else {
+            $this->data ['error_payment_postcode'] = '';
+        }
+
+        if (isset($this->error ['payment_tax_id'])) {
+            $this->data ['error_payment_tax_id'] = $this->error ['payment_tax_id'];
+        } else {
+            $this->data ['error_payment_tax_id'] = '';
+        }
+
+        if (isset($this->error ['payment_country'])) {
+            $this->data ['error_payment_country'] = $this->error ['payment_country'];
+        } else {
+            $this->data ['error_payment_country'] = '';
+        }
+
+        if (isset($this->error ['payment_zone'])) {
+            $this->data ['error_payment_zone'] = $this->error ['payment_zone'];
+        } else {
+            $this->data ['error_payment_zone'] = '';
+        }
+
+        if (isset($this->error ['payment_method'])) {
+            $this->data ['error_payment_method'] = $this->error ['payment_method'];
+        } else {
+            $this->data ['error_payment_method'] = '';
+        }
+
+        if (isset($this->error ['shipping_firstname'])) {
+            $this->data ['error_shipping_firstname'] = $this->error ['shipping_firstname'];
+        } else {
+            $this->data ['error_shipping_firstname'] = '';
+        }
+
+        if (isset($this->error ['shipping_lastname'])) {
+            $this->data ['error_shipping_lastname'] = $this->error ['shipping_lastname'];
+        } else {
+            $this->data ['error_shipping_lastname'] = '';
+        }
+
+        if (isset($this->error ['shipping_address_1'])) {
+            $this->data ['error_shipping_address_1'] = $this->error ['shipping_address_1'];
+        } else {
+            $this->data ['error_shipping_address_1'] = '';
+        }
+
+        if (isset($this->error ['shipping_city'])) {
+            $this->data ['error_shipping_city'] = $this->error ['shipping_city'];
+        } else {
+            $this->data ['error_shipping_city'] = '';
+        }
+
+        if (isset($this->error ['shipping_postcode'])) {
+            $this->data ['error_shipping_postcode'] = $this->error ['shipping_postcode'];
+        } else {
+            $this->data ['error_shipping_postcode'] = '';
+        }
+
+        if (isset($this->error ['shipping_country'])) {
+            $this->data ['error_shipping_country'] = $this->error ['shipping_country'];
+        } else {
+            $this->data ['error_shipping_country'] = '';
+        }
+
+        if (isset($this->error ['shipping_zone'])) {
+            $this->data ['error_shipping_zone'] = $this->error ['shipping_zone'];
+        } else {
+            $this->data ['error_shipping_zone'] = '';
+        }
+
+        if (isset($this->error ['shipping_method'])) {
+            $this->data ['error_shipping_method'] = $this->error ['shipping_method'];
+        } else {
+            $this->data ['error_shipping_method'] = '';
+        }
+
+        $url = '';
+
+        if (isset($this->request->get ['filter_order_id'])) {
+            $url .= '&filter_order_id=' . $this->request->get ['filter_order_id'];
+        }
+
+        if (isset($this->request->get ['filter_customer'])) {
+            $url .= '&filter_customer=' . urlencode(html_entity_decode($this->request->get ['filter_customer'], ENT_QUOTES, 'UTF-8'));
+        }
+
+        if (isset($this->request->get ['filter_order_status_id'])) {
+            $url .= '&filter_order_status_id=' . $this->request->get ['filter_order_status_id'];
+        }
+
+        if (isset($this->request->get ['filter_total'])) {
+            $url .= '&filter_total=' . $this->request->get ['filter_total'];
+        }
+
+        if (isset($this->request->get ['filter_date_added'])) {
+            $url .= '&filter_date_added=' . $this->request->get ['filter_date_added'];
+        }
+
+        if (isset($this->request->get ['filter_date_modified'])) {
+            $url .= '&filter_date_modified=' . $this->request->get ['filter_date_modified'];
+        }
+
+        if (isset($this->request->get ['sort'])) {
+            $url .= '&sort=' . $this->request->get ['sort'];
+        }
+
+        if (isset($this->request->get ['order'])) {
+            $url .= '&order=' . $this->request->get ['order'];
+        }
+
+        if (isset($this->request->get ['page'])) {
+            $url .= '&page=' . $this->request->get ['page'];
+        }
+
+        $this->data ['breadcrumbs'] = array();
+
+        $this->data ['breadcrumbs'] [] = array(
+            'text' => $this->language->get('text_home'),
+            'href' => $this->url->link('common/home', 'token=' . $this->session->data ['token'], 'SSL'),
+            'separator' => false
+        );
+
+        $this->data ['breadcrumbs'] [] = array(
+            'text' => $this->language->get('heading_title'),
+            'href' => $this->url->link('sale/order', 'token=' . $this->session->data ['token'] . $url, 'SSL'),
+            'separator' => ' :: '
+        );
+
+        if (!isset($this->request->get ['order_id'])) {
+            $this->data ['action'] = $this->url->link('sale/order/insert', 'token=' . $this->session->data ['token'] . $url, 'SSL');
+        } else {
+            $this->data ['action'] = $this->url->link('sale/order/ ', 'token=' . $this->session->data ['token'] . '&order_id=' . $this->request->get ['order_id'] . $url, 'SSL');
+        }
+
+        $this->data ['cancel'] = $this->url->link('sale/order', 'token=' . $this->session->data ['token'] . $url, 'SSL');
+
+        if (isset($this->request->get ['order_id']) && ($this->request->server ['REQUEST_METHOD'] != 'POST')) {
+            $order_info = $this->model_sale_order->getOrder($this->request->get ['order_id']);
+        }
+
+        $this->data ['token'] = $this->session->data ['token'];
+
+        if (isset($this->request->get ['order_id'])) {
+            $this->data ['order_id'] = $this->request->get ['order_id'];
+        } else {
+            $this->data ['order_id'] = 0;
+        }
+
+        if (isset($this->request->post ['store_id'])) {
+            $this->data ['store_id'] = $this->request->post ['store_id'];
+        } elseif (!empty($order_info)) {
+            $this->data ['store_id'] = $order_info ['store_id'];
+        } else {
+            $this->data ['store_id'] = '';
+        }
+
+        $this->load->model('setting/store');
+
+        $this->data ['stores'] = $this->model_setting_store->getStores();
+
+        if (isset($this->request->server ['HTTPS']) && (($this->request->server ['HTTPS'] == 'on') || ($this->request->server ['HTTPS'] == '1'))) {
+            $this->data ['store_url'] = HTTPS_CATALOG;
+        } else {
+            $this->data ['store_url'] = HTTP_CATALOG;
+        }
+
+        if (isset($this->request->post ['customer'])) {
+            $this->data ['customer'] = $this->request->post ['customer'];
+        } elseif (!empty($order_info)) {
+            $this->data ['customer'] = $order_info ['customer'];
+        } else {
+            $this->data ['customer'] = '';
+        }
+
+        if (isset($this->request->post ['customer_id'])) {
+            $this->data ['customer_id'] = $this->request->post ['customer_id'];
+        } elseif (!empty($order_info)) {
+            $this->data ['customer_id'] = $order_info ['customer_id'];
+        } else {
+            $this->data ['customer_id'] = '';
+        }
+
+        if (isset($this->request->post ['customer_group_id'])) {
+            $this->data ['customer_group_id'] = $this->request->post ['customer_group_id'];
+        } elseif (!empty($order_info)) {
+            $this->data ['customer_group_id'] = $order_info ['customer_group_id'];
+        } else {
+            $this->data ['customer_group_id'] = '';
+        }
+
+        $this->load->model('sale/customer_group');
+
+        $this->data ['customer_groups'] = $this->model_sale_customer_group->getCustomerGroups();
+
+        if (isset($this->request->post ['firstname'])) {
+            $this->data ['firstname'] = $this->request->post ['firstname'];
+        } elseif (!empty($order_info)) {
+            $this->data ['firstname'] = $order_info ['firstname'];
+        } else {
+            $this->data ['firstname'] = '';
+        }
+
+        if (isset($this->request->post ['lastname'])) {
+            $this->data ['lastname'] = $this->request->post ['lastname'];
+        } elseif (!empty($order_info)) {
+            $this->data ['lastname'] = $order_info ['lastname'];
+        } else {
+            $this->data ['lastname'] = '';
+        }
+
+        if (isset($this->request->post ['email'])) {
+            $this->data ['email'] = $this->request->post ['email'];
+        } elseif (!empty($order_info)) {
+            $this->data ['email'] = $order_info ['email'];
+        } else {
+            $this->data ['email'] = '';
+        }
+
+        if (isset($this->request->post ['telephone'])) {
+            $this->data ['telephone'] = $this->request->post ['telephone'];
+        } elseif (!empty($order_info)) {
+            $this->data ['telephone'] = $order_info ['telephone'];
+        } else {
+            $this->data ['telephone'] = '';
+        }
+
+        if (isset($this->request->post ['fax'])) {
+            $this->data ['fax'] = $this->request->post ['fax'];
+        } elseif (!empty($order_info)) {
+            $this->data ['fax'] = $order_info ['fax'];
+        } else {
+            $this->data ['fax'] = '';
+        }
+
+        if (isset($this->request->post ['affiliate_id'])) {
+            $this->data ['affiliate_id'] = $this->request->post ['affiliate_id'];
+        } elseif (!empty($order_info)) {
+            $this->data ['affiliate_id'] = $order_info ['affiliate_id'];
+        } else {
+            $this->data ['affiliate_id'] = '';
+        }
+
+        if (isset($this->request->post ['affiliate'])) {
+            $this->data ['affiliate'] = $this->request->post ['affiliate'];
+        } elseif (!empty($order_info)) {
+            $this->data ['affiliate'] = ($order_info ['affiliate_id'] ? $order_info ['affiliate_firstname'] . ' ' . $order_info ['affiliate_lastname'] : '');
+        } else {
+            $this->data ['affiliate'] = '';
+        }
+
+        if (isset($this->request->post ['order_status_id'])) {
+            $this->data ['order_status_id'] = $this->request->post ['order_status_id'];
+        } elseif (!empty($order_info)) {
+            $this->data ['order_status_id'] = $order_info ['order_status_id'];
+        } else {
+            $this->data ['order_status_id'] = '';
+        }
+
+        $this->load->model('localisation/order_status');
+
+        $this->data ['order_statuses'] = $this->model_localisation_order_status->getOrderStatuses();
+
+        if (isset($this->request->post ['comment'])) {
+            $this->data ['comment'] = $this->request->post ['comment'];
+        } elseif (!empty($order_info)) {
+            $this->data ['comment'] = $order_info ['comment'];
+        } else {
+            $this->data ['comment'] = '';
+        }
+
+        $this->load->model('sale/customer');
+
+        if (isset($this->request->post ['customer_id'])) {
+            $this->data ['addresses'] = $this->model_sale_customer->getAddresses($this->request->post ['customer_id']);
+        } elseif (!empty($order_info)) {
+            $this->data ['addresses'] = $this->model_sale_customer->getAddresses($order_info ['customer_id']);
+        } else {
+            $this->data ['addresses'] = array();
+        }
+
+        if (isset($this->request->post ['payment_firstname'])) {
+            $this->data ['payment_firstname'] = $this->request->post ['payment_firstname'];
+        } elseif (!empty($order_info)) {
+            $this->data ['payment_firstname'] = $order_info ['payment_firstname'];
+        } else {
+            $this->data ['payment_firstname'] = '';
+        }
+
+        if (isset($this->request->post ['payment_lastname'])) {
+            $this->data ['payment_lastname'] = $this->request->post ['payment_lastname'];
+        } elseif (!empty($order_info)) {
+            $this->data ['payment_lastname'] = $order_info ['payment_lastname'];
+        } else {
+            $this->data ['payment_lastname'] = '';
+        }
+
+        if (isset($this->request->post ['payment_company'])) {
+            $this->data ['payment_company'] = $this->request->post ['payment_company'];
+        } elseif (!empty($order_info)) {
+            $this->data ['payment_company'] = $order_info ['payment_company'];
+        } else {
+            $this->data ['payment_company'] = '';
+        }
+
+        if (isset($this->request->post ['payment_company_id'])) {
+            $this->data ['payment_company_id'] = $this->request->post ['payment_company_id'];
+        } elseif (!empty($order_info)) {
+            $this->data ['payment_company_id'] = $order_info ['payment_company_id'];
+        } else {
+            $this->data ['payment_company_id'] = '';
+        }
+
+        if (isset($this->request->post ['payment_tax_id'])) {
+            $this->data ['payment_tax_id'] = $this->request->post ['payment_tax_id'];
+        } elseif (!empty($order_info)) {
+            $this->data ['payment_tax_id'] = $order_info ['payment_tax_id'];
+        } else {
+            $this->data ['payment_tax_id'] = '';
+        }
+
+        if (isset($this->request->post ['payment_address_1'])) {
+            $this->data ['payment_address_1'] = $this->request->post ['payment_address_1'];
+        } elseif (!empty($order_info)) {
+            $this->data ['payment_address_1'] = $order_info ['payment_address_1'];
+        } else {
+            $this->data ['payment_address_1'] = '';
+        }
+
+        if (isset($this->request->post ['payment_address_2'])) {
+            $this->data ['payment_address_2'] = $this->request->post ['payment_address_2'];
+        } elseif (!empty($order_info)) {
+            $this->data ['payment_address_2'] = $order_info ['payment_address_2'];
+        } else {
+            $this->data ['payment_address_2'] = '';
+        }
+
+        if (isset($this->request->post ['payment_city'])) {
+            $this->data ['payment_city'] = $this->request->post ['payment_city'];
+        } elseif (!empty($order_info)) {
+            $this->data ['payment_city'] = $order_info ['payment_city'];
+        } else {
+            $this->data ['payment_city'] = '';
+        }
+
+        if (isset($this->request->post ['payment_postcode'])) {
+            $this->data ['payment_postcode'] = $this->request->post ['payment_postcode'];
+        } elseif (!empty($order_info)) {
+            $this->data ['payment_postcode'] = $order_info ['payment_postcode'];
+        } else {
+            $this->data ['payment_postcode'] = '';
+        }
+
+        if (isset($this->request->post ['payment_country_id'])) {
+            $this->data ['payment_country_id'] = $this->request->post ['payment_country_id'];
+        } elseif (!empty($order_info)) {
+            $this->data ['payment_country_id'] = $order_info ['payment_country_id'];
+        } else {
+            $this->data ['payment_country_id'] = '';
+        }
+
+        if (isset($this->request->post ['payment_zone_id'])) {
+            $this->data ['payment_zone_id'] = $this->request->post ['payment_zone_id'];
+        } elseif (!empty($order_info)) {
+            $this->data ['payment_zone_id'] = $order_info ['payment_zone_id'];
+        } else {
+            $this->data ['payment_zone_id'] = '';
+        }
+
+        if (isset($this->request->post ['payment_method'])) {
+            $this->data ['payment_method'] = $this->request->post ['payment_method'];
+        } elseif (!empty($order_info)) {
+            $this->data ['payment_method'] = $order_info ['payment_method'];
+        } else {
+            $this->data ['payment_method'] = '';
+        }
+
+        if (isset($this->request->post ['payment_code'])) {
+            $this->data ['payment_code'] = $this->request->post ['payment_code'];
+        } elseif (!empty($order_info)) {
+            $this->data ['payment_code'] = $order_info ['payment_code'];
+        } else {
+            $this->data ['payment_code'] = '';
+        }
+
+        if (isset($this->request->post ['shipping_firstname'])) {
+            $this->data ['shipping_firstname'] = $this->request->post ['shipping_firstname'];
+        } elseif (!empty($order_info)) {
+            $this->data ['shipping_firstname'] = $order_info ['shipping_firstname'];
+        } else {
+            $this->data ['shipping_firstname'] = '';
+        }
+
+        if (isset($this->request->post ['shipping_lastname'])) {
+            $this->data ['shipping_lastname'] = $this->request->post ['shipping_lastname'];
+        } elseif (!empty($order_info)) {
+            $this->data ['shipping_lastname'] = $order_info ['shipping_lastname'];
+        } else {
+            $this->data ['shipping_lastname'] = '';
+        }
+
+        if (isset($this->request->post ['shipping_company'])) {
+            $this->data ['shipping_company'] = $this->request->post ['shipping_company'];
+        } elseif (!empty($order_info)) {
+            $this->data ['shipping_company'] = $order_info ['shipping_company'];
+        } else {
+            $this->data ['shipping_company'] = '';
+        }
+
+        if (isset($this->request->post ['shipping_address_1'])) {
+            $this->data ['shipping_address_1'] = $this->request->post ['shipping_address_1'];
+        } elseif (!empty($order_info)) {
+            $this->data ['shipping_address_1'] = $order_info ['shipping_address_1'];
+        } else {
+            $this->data ['shipping_address_1'] = '';
+        }
+
+        if (isset($this->request->post ['shipping_address_2'])) {
+            $this->data ['shipping_address_2'] = $this->request->post ['shipping_address_2'];
+        } elseif (!empty($order_info)) {
+            $this->data ['shipping_address_2'] = $order_info ['shipping_address_2'];
+        } else {
+            $this->data ['shipping_address_2'] = '';
+        }
+
+        if (isset($this->request->post ['shipping_city'])) {
+            $this->data ['shipping_city'] = $this->request->post ['shipping_city'];
+        } elseif (!empty($order_info)) {
+            $this->data ['shipping_city'] = $order_info ['shipping_city'];
+        } else {
+            $this->data ['shipping_city'] = '';
+        }
+
+        if (isset($this->request->post ['shipping_postcode'])) {
+            $this->data ['shipping_postcode'] = $this->request->post ['shipping_postcode'];
+        } elseif (!empty($order_info)) {
+            $this->data ['shipping_postcode'] = $order_info ['shipping_postcode'];
+        } else {
+            $this->data ['shipping_postcode'] = '';
+        }
+
+        if (isset($this->request->post ['shipping_country_id'])) {
+            $this->data ['shipping_country_id'] = $this->request->post ['shipping_country_id'];
+        } elseif (!empty($order_info)) {
+            $this->data ['shipping_country_id'] = $order_info ['shipping_country_id'];
+        } else {
+            $this->data ['shipping_country_id'] = '';
+        }
+
+        if (isset($this->request->post ['shipping_zone_id'])) {
+            $this->data ['shipping_zone_id'] = $this->request->post ['shipping_zone_id'];
+        } elseif (!empty($order_info)) {
+            $this->data ['shipping_zone_id'] = $order_info ['shipping_zone_id'];
+        } else {
+            $this->data ['shipping_zone_id'] = '';
+        }
+
+        $this->load->model('localisation/country');
+
+        $this->data ['countries'] = $this->model_localisation_country->getCountries();
+
+        if (isset($this->request->post ['shipping_method'])) {
+            $this->data ['shipping_method'] = $this->request->post ['shipping_method'];
+        } elseif (!empty($order_info)) {
+            $this->data ['shipping_method'] = $order_info ['shipping_method'];
+        } else {
+            $this->data ['shipping_method'] = '';
+        }
+
+        if (isset($this->request->post ['shipping_code'])) {
+            $this->data ['shipping_code'] = $this->request->post ['shipping_code'];
+        } elseif (!empty($order_info)) {
+            $this->data ['shipping_code'] = $order_info ['shipping_code'];
+        } else {
+            $this->data ['shipping_code'] = '';
+        }
+
+        if (isset($this->request->post ['order_product'])) {
+            $order_products = $this->request->post ['order_product'];
+        } elseif (isset($this->request->get ['order_id'])) {
+            $order_products = $this->model_sale_order->getOrderProducts($this->request->get ['order_id']);
+        } else {
+            $order_products = array();
+        }
+
+        $this->load->model('catalog/product');
+
+        $this->document->addScript('view/javascript/jquery/ajaxupload.js');
+
+        $this->data ['order_products'] = array();
+
+        foreach ($order_products as $order_product) {
+            if (isset($order_product ['order_option'])) {
+                $order_option = $order_product ['order_option'];
+            } elseif (isset($this->request->get ['order_id'])) {
+                $order_option = $this->model_sale_order->getOrderOptions($this->request->get ['order_id'], $order_product ['order_product_id']);
+            } else {
+                $order_option = array();
+            }
+
+            if (isset($order_product ['order_download'])) {
+                $order_download = $order_product ['order_download'];
+            } elseif (isset($this->request->get ['order_id'])) {
+                $order_download = $this->model_sale_order->getOrderDownloads($this->request->get ['order_id'], $order_product ['order_product_id']);
+            } else {
+                $order_download = array();
+            }
+
+            $this->data ['order_products'] [] = array(
+                'order_product_id' => $order_product ['order_product_id'],
+                'product_id' => $order_product ['product_id'],
+                'name' => $order_product ['name'],
+                'model' => $order_product ['model'],
+                'option' => $order_option,
+                'download' => $order_download,
+                'quantity' => $order_product ['quantity'],
+                'price' => $order_product ['price'],
+                'total' => $order_product ['total'],
+                'tax' => $order_product ['tax'],
+                'reward' => $order_product ['reward']
+            );
+        }
+
+        if (isset($this->request->post ['order_voucher'])) {
+            $this->data ['order_vouchers'] = $this->request->post ['order_voucher'];
+        } elseif (isset($this->request->get ['order_id'])) {
+            $this->data ['order_vouchers'] = $this->model_sale_order->getOrderVouchers($this->request->get ['order_id']);
+        } else {
+            $this->data ['order_vouchers'] = array();
+        }
+
+        $this->load->model('sale/voucher_theme');
+
+        $this->data ['voucher_themes'] = $this->model_sale_voucher_theme->getVoucherThemes();
+
+        if (isset($this->request->post ['order_total'])) {
+            $this->data ['order_totals'] = $this->request->post ['order_total'];
+        } elseif (isset($this->request->get ['order_id'])) {
+            $this->data ['order_totals'] = $this->model_sale_order->getOrderTotals($this->request->get ['order_id']);
+        } else {
+            $this->data ['order_totals'] = array();
+        }
+
+        $this->template = 'sale/order_form.tpl';
+        $this->children = array(
+            'common/header',
+            'common/footer'
+        );
+
+        $this->response->setOutput($this->render());
+    }
+
+    protected function validateForm() {
+        if (!$this->user->hasPermission('modify', 'sale/order')) {
+            $this->error ['warning'] = $this->language->get('error_permission');
+        }
+
+        if ((utf8_strlen($this->request->post ['firstname']) < 1) || (utf8_strlen($this->request->post ['firstname']) > 32)) {
+            $this->error ['firstname'] = $this->language->get('error_firstname');
+        }
+
+        if ((utf8_strlen($this->request->post ['lastname']) < 1) || (utf8_strlen($this->request->post ['lastname']) > 32)) {
+            $this->error ['lastname'] = $this->language->get('error_lastname');
+        }
+
+        if ((utf8_strlen($this->request->post ['email']) > 96) || (!preg_match('/^[^\@]+@.*\.[a-z]{2,6}$/i', $this->request->post ['email']))) {
+            $this->error ['email'] = $this->language->get('error_email');
+        }
+
+        if ((utf8_strlen($this->request->post ['telephone']) < 3) || (utf8_strlen($this->request->post ['telephone']) > 32)) {
+            $this->error ['telephone'] = $this->language->get('error_telephone');
+        }
+
+        if ((utf8_strlen($this->request->post ['payment_firstname']) < 1) || (utf8_strlen($this->request->post ['payment_firstname']) > 32)) {
+            $this->error ['payment_firstname'] = $this->language->get('error_firstname');
+        }
+
+        if ((utf8_strlen($this->request->post ['payment_lastname']) < 1) || (utf8_strlen($this->request->post ['payment_lastname']) > 32)) {
+            $this->error ['payment_lastname'] = $this->language->get('error_lastname');
+        }
+
+        if ((utf8_strlen($this->request->post ['payment_address_1']) < 3) || (utf8_strlen($this->request->post ['payment_address_1']) > 128)) {
+            $this->error ['payment_address_1'] = $this->language->get('error_address_1');
+        }
+
+        if ((utf8_strlen($this->request->post ['payment_city']) < 3) || (utf8_strlen($this->request->post ['payment_city']) > 128)) {
+            $this->error ['payment_city'] = $this->language->get('error_city');
+        }
+
+        $this->load->model('localisation/country');
+
+        $country_info = $this->model_localisation_country->getCountry($this->request->post ['payment_country_id']);
+
+        if ($country_info) {
+            if ($country_info ['postcode_required'] && (utf8_strlen($this->request->post ['payment_postcode']) < 2) || (utf8_strlen($this->request->post ['payment_postcode']) > 10)) {
+                $this->error ['payment_postcode'] = $this->language->get('error_postcode');
+            }
+
+            // VAT Validation
+            $this->load->helper('vat');
+
+            if ($this->config->get('config_vat') && $this->request->post ['payment_tax_id'] && (vat_validation($country_info ['iso_code_2'], $this->request->post ['payment_tax_id']) == 'invalid')) {
+                $this->error ['payment_tax_id'] = $this->language->get('error_vat');
+            }
+        }
+
+        if ($this->request->post ['payment_country_id'] == '') {
+            $this->error ['payment_country'] = $this->language->get('error_country');
+        }
+
+        if (!isset($this->request->post ['payment_zone_id']) || $this->request->post ['payment_zone_id'] == '') {
+            $this->error ['payment_zone'] = $this->language->get('error_zone');
+        }
+
+        if (!isset($this->request->post ['payment_method']) || $this->request->post ['payment_method'] == '') {
+            $this->error ['payment_method'] = $this->language->get('error_payment');
+        }
+
+        // Check if any products require shipping
+        $shipping = false;
+
+        if (isset($this->request->post ['order_product'])) {
+            $this->load->model('catalog/product');
+
+            foreach ($this->request->post ['order_product'] as $order_product) {
+                $product_info = $this->model_catalog_product->getProduct($order_product ['product_id']);
+
+                if ($product_info && $product_info ['shipping']) {
+                    $shipping = true;
+                }
+            }
+        }
+
+        if ($shipping) {
+            if ((utf8_strlen($this->request->post ['shipping_firstname']) < 1) || (utf8_strlen($this->request->post ['shipping_firstname']) > 32)) {
+                $this->error ['shipping_firstname'] = $this->language->get('error_firstname');
+            }
+
+            if ((utf8_strlen($this->request->post ['shipping_lastname']) < 1) || (utf8_strlen($this->request->post ['shipping_lastname']) > 32)) {
+                $this->error ['shipping_lastname'] = $this->language->get('error_lastname');
+            }
+
+            if ((utf8_strlen($this->request->post ['shipping_address_1']) < 3) || (utf8_strlen($this->request->post ['shipping_address_1']) > 128)) {
+                $this->error ['shipping_address_1'] = $this->language->get('error_address_1');
+            }
+
+            if ((utf8_strlen($this->request->post ['shipping_city']) < 3) || (utf8_strlen($this->request->post ['shipping_city']) > 128)) {
+                $this->error ['shipping_city'] = $this->language->get('error_city');
+            }
+
+            $this->load->model('localisation/country');
+
+            $country_info = $this->model_localisation_country->getCountry($this->request->post ['shipping_country_id']);
+
+            if ($country_info && $country_info ['postcode_required'] && (utf8_strlen($this->request->post ['shipping_postcode']) < 2) || (utf8_strlen($this->request->post ['shipping_postcode']) > 10)) {
+                $this->error ['shipping_postcode'] = $this->language->get('error_postcode');
+            }
+
+            if ($this->request->post ['shipping_country_id'] == '') {
+                $this->error ['shipping_country'] = $this->language->get('error_country');
+            }
+
+            if (!isset($this->request->post ['shipping_zone_id']) || $this->request->post ['shipping_zone_id'] == '') {
+                $this->error ['shipping_zone'] = $this->language->get('error_zone');
+            }
+
+            if (!$this->request->post ['shipping_method']) {
+                $this->error ['shipping_method'] = $this->language->get('error_shipping');
+            }
+        }
+
+        if ($this->error && !isset($this->error ['warning'])) {
+            $this->error ['warning'] = $this->language->get('error_warning');
+        }
+
+        if (!$this->error) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    protected function validateDelete() {
+        if (!$this->user->hasPermission('modify', 'sale/order')) {
+            $this->error ['warning'] = $this->language->get('error_permission');
+        }
+
+        if (!$this->error) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function country() {
+        $json = array();
+
+        $this->load->model('localisation/country');
+
+        $country_info = $this->model_localisation_country->getCountry($this->request->get ['country_id']);
+
+        if ($country_info) {
+            $this->load->model('localisation/zone');
+
+            $json = array(
+                'country_id' => $country_info ['country_id'],
+                'name' => $country_info ['name'],
+                'iso_code_2' => $country_info ['iso_code_2'],
+                'iso_code_3' => $country_info ['iso_code_3'],
+                'address_format' => $country_info ['address_format'],
+                'postcode_required' => $country_info ['postcode_required'],
+                'zone' => $this->model_localisation_zone->getZonesByCountryId($this->request->get ['country_id']),
+                'status' => $country_info ['status']
+            );
+        }
+
+        $this->response->setOutput(json_encode($json));
+    }
+
+    public function createInvoiceNo() {
+        $this->language->load('sale/order');
+
+        $json = array();
+
+        if (!$this->user->hasPermission('modify', 'sale/order')) {
+            $json ['error'] = $this->language->get('error_permission');
+        } elseif (isset($this->request->get ['order_id'])) {
+            $this->load->model('sale/order');
+
+            $invoice_no = $this->model_sale_order->createInvoiceNo($this->request->get ['order_id']);
+
+            if ($invoice_no) {
+                $json ['invoice_no'] = $invoice_no;
+            } else {
+                $json ['error'] = $this->language->get('error_action');
+            }
+        }
+
+        $this->response->setOutput(json_encode($json));
+    }
+
+    public function addCredit() {
+        $this->language->load('sale/order');
+
+        $json = array();
+
+        if (!$this->user->hasPermission('modify', 'sale/order')) {
+            $json ['error'] = $this->language->get('error_permission');
+        } elseif (isset($this->request->get ['order_id'])) {
+            $this->load->model('sale/order');
+
+            $order_info = $this->model_sale_order->getOrder($this->request->get ['order_id']);
+
+            if ($order_info && $order_info ['customer_id']) {
+                $this->load->model('sale/customer');
+
+                $credit_total = $this->model_sale_customer->getTotalTransactionsByOrderId($this->request->get ['order_id']);
+
+                if (!$credit_total) {
+                    $this->model_sale_customer->addTransaction($order_info ['customer_id'], $this->language->get('text_order_id') . ' #' . $this->request->get ['order_id'], $order_info ['total'], $this->request->get ['order_id']);
+
+                    $json ['success'] = $this->language->get('text_credit_added');
+                } else {
+                    $json ['error'] = $this->language->get('error_action');
+                }
+            }
+        }
+
+        $this->response->setOutput(json_encode($json));
+    }
+
+    public function removeCredit() {
+        $this->language->load('sale/order');
+
+        $json = array();
+
+        if (!$this->user->hasPermission('modify', 'sale/order')) {
+            $json ['error'] = $this->language->get('error_permission');
+        } elseif (isset($this->request->get ['order_id'])) {
+            $this->load->model('sale/order');
+
+            $order_info = $this->model_sale_order->getOrder($this->request->get ['order_id']);
+
+            if ($order_info && $order_info ['customer_id']) {
+                $this->load->model('sale/customer');
+
+                $this->model_sale_customer->deleteTransaction($this->request->get ['order_id']);
+
+                $json ['success'] = $this->language->get('text_credit_removed');
+            } else {
+                $json ['error'] = $this->language->get('error_action');
+            }
+        }
+
+        $this->response->setOutput(json_encode($json));
+    }
+
+    public function addReward() {
+        $this->language->load('sale/order');
+
+        $json = array();
+
+        if (!$this->user->hasPermission('modify', 'sale/order')) {
+            $json ['error'] = $this->language->get('error_permission');
+        } elseif (isset($this->request->get ['order_id'])) {
+            $this->load->model('sale/order');
+
+            $order_info = $this->model_sale_order->getOrder($this->request->get ['order_id']);
+
+            if ($order_info && $order_info ['customer_id']) {
+                $this->load->model('sale/customer');
+
+                $reward_total = $this->model_sale_customer->getTotalCustomerRewardsByOrderId($this->request->get ['order_id']);
+
+                if (!$reward_total) {
+                    $this->model_sale_customer->addReward($order_info ['customer_id'], $this->language->get('text_order_id') . ' #' . $this->request->get ['order_id'], $order_info ['reward'], $this->request->get ['order_id']);
+
+                    $json ['success'] = $this->language->get('text_reward_added');
+                } else {
+                    $json ['error'] = $this->language->get('error_action');
+                }
+            } else {
+                $json ['error'] = $this->language->get('error_action');
+            }
+        }
+
+        $this->response->setOutput(json_encode($json));
+    }
+
+    public function removeReward() {
+        $this->language->load('sale/order');
+
+        $json = array();
+
+        if (!$this->user->hasPermission('modify', 'sale/order')) {
+            $json ['error'] = $this->language->get('error_permission');
+        } elseif (isset($this->request->get ['order_id'])) {
+            $this->load->model('sale/order');
+
+            $order_info = $this->model_sale_order->getOrder($this->request->get ['order_id']);
+
+            if ($order_info && $order_info ['customer_id']) {
+                $this->load->model('sale/customer');
+
+                $this->model_sale_customer->deleteReward($this->request->get ['order_id']);
+
+                $json ['success'] = $this->language->get('text_reward_removed');
+            } else {
+                $json ['error'] = $this->language->get('error_action');
+            }
+        }
+
+        $this->response->setOutput(json_encode($json));
+    }
+
+    public function addCommission() {
+        $this->language->load('sale/order');
+
+        $json = array();
+
+        if (!$this->user->hasPermission('modify', 'sale/order')) {
+            $json ['error'] = $this->language->get('error_permission');
+        } elseif (isset($this->request->get ['order_id'])) {
+            $this->load->model('sale/order');
+
+            $order_info = $this->model_sale_order->getOrder($this->request->get ['order_id']);
+
+            if ($order_info && $order_info ['affiliate_id']) {
+                $this->load->model('sale/affiliate');
+
+                $affiliate_total = $this->model_sale_affiliate->getTotalTransactionsByOrderId($this->request->get ['order_id']);
+
+                if (!$affiliate_total) {
+                    $this->model_sale_affiliate->addTransaction($order_info ['affiliate_id'], $this->language->get('text_order_id') . ' #' . $this->request->get ['order_id'], $order_info ['commission'], $this->request->get ['order_id']);
+
+                    $json ['success'] = $this->language->get('text_commission_added');
+                } else {
+                    $json ['error'] = $this->language->get('error_action');
+                }
+            } else {
+                $json ['error'] = $this->language->get('error_action');
+            }
+        }
+
+        $this->response->setOutput(json_encode($json));
+    }
+
+    public function removeCommission() {
+        $this->language->load('sale/order');
+
+        $json = array();
+
+        if (!$this->user->hasPermission('modify', 'sale/order')) {
+            $json ['error'] = $this->language->get('error_permission');
+        } elseif (isset($this->request->get ['order_id'])) {
+            $this->load->model('sale/order');
+
+            $order_info = $this->model_sale_order->getOrder($this->request->get ['order_id']);
+
+            if ($order_info && $order_info ['affiliate_id']) {
+                $this->load->model('sale/affiliate');
+
+                $this->model_sale_affiliate->deleteTransaction($this->request->get ['order_id']);
+
+                $json ['success'] = $this->language->get('text_commission_removed');
+            } else {
+                $json ['error'] = $this->language->get('error_action');
+            }
+        }
+
+        $this->response->setOutput(json_encode($json));
+    }
+
+    public function history() {
+        $this->language->load('sale/order');
+
+        $this->data ['error'] = '';
+        $this->data ['success'] = '';
+
+        $this->load->model('sale/order');
+
+        if ($this->request->server ['REQUEST_METHOD'] == 'POST') {
+            if (!$this->user->hasPermission('modify', 'sale/order')) {
+                $this->data ['error'] = $this->language->get('error_permission');
+            }
+
+            if (!$this->data ['error']) {
+                $this->model_sale_order->addOrderHistory($this->request->get ['order_id'], $this->request->post);
+
+                $this->data ['success'] = $this->language->get('text_success');
+            }
+        }
+
+        $this->data ['text_no_results'] = $this->language->get('text_no_results');
+
+        $this->data ['column_date_added'] = $this->language->get('column_date_added');
+        $this->data ['column_status'] = $this->language->get('column_status');
+        $this->data ['column_notify'] = $this->language->get('column_notify');
+        $this->data ['column_comment'] = $this->language->get('column_comment');
+
+        if (isset($this->request->get ['page'])) {
+            $page = $this->request->get ['page'];
+        } else {
+            $page = 1;
+        }
+
+        $this->data ['histories'] = array();
+
+        $results = $this->model_sale_order->getOrderHistories($this->request->get ['order_id'], ($page - 1) * 10, 10);
+
+        foreach ($results as $result) {
+            $this->data ['histories'] [] = array(
+                'notify' => $result ['notify'] ? $this->language->get('text_yes') : $this->language->get('text_no'),
+                'status' => $result ['status'],
+                'comment' => nl2br($result ['comment']),
+                'date_added' => date($this->language->get('date_format_short'), strtotime($result ['date_added']))
+            );
+        }
+
+        $history_total = $this->model_sale_order->getTotalOrderHistories($this->request->get ['order_id']);
+
+        $pagination = new Pagination ();
+        $pagination->total = $history_total;
+        $pagination->page = $page;
+        $pagination->limit = 10;
+        $pagination->text = $this->language->get('text_pagination');
+        $pagination->url = $this->url->link('sale/order/history', 'token=' . $this->session->data ['token'] . '&order_id=' . $this->request->get ['order_id'] . '&page={page}', 'SSL');
+
+        $this->data ['pagination'] = $pagination->render();
+
+        $this->template = 'sale/order_history.tpl';
+
+        $this->response->setOutput($this->render());
+    }
+
+    public function download() {
+        $this->load->model('sale/order');
+
+        if (isset($this->request->get ['order_option_id'])) {
+            $order_option_id = $this->request->get ['order_option_id'];
+        } else {
+            $order_option_id = 0;
+        }
+
+        $option_info = $this->model_sale_order->getOrderOption($this->request->get ['order_id'], $order_option_id);
+
+        if ($option_info && $option_info ['type'] == 'file') {
+            $file = DIR_DOWNLOAD . $option_info ['value'];
+            $mask = basename(utf8_substr($option_info ['value'], 0, utf8_strrpos($option_info ['value'], '.')));
+
+            if (!headers_sent()) {
+                if (file_exists($file)) {
+                    header('Content-Type: application/octet-stream');
+                    header('Content-Description: File Transfer');
+                    header('Content-Disposition: attachment; filename="' . ($mask ? $mask : basename($file)) . '"');
+                    header('Content-Transfer-Encoding: binary');
+                    header('Expires: 0');
+                    header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
+                    header('Pragma: public');
+                    header('Content-Length: ' . filesize($file));
+
+                    readfile($file, 'rb');
+                    exit();
+                } else {
+                    exit('Error: Could not find file ' . $file . '!');
+                }
+            } else {
+                exit('Error: Headers already sent out!');
+            }
+        } else {
+            $this->language->load('error/not_found');
+
+            $this->document->setTitle($this->language->get('heading_title'));
+
+            $this->data ['heading_title'] = $this->language->get('heading_title');
+
+            $this->data ['text_not_found'] = $this->language->get('text_not_found');
+
+            $this->data ['breadcrumbs'] = array();
+
+            $this->data ['breadcrumbs'] [] = array(
+                'text' => $this->language->get('text_home'),
+                'href' => $this->url->link('common/home', 'token=' . $this->session->data ['token'], 'SSL'),
+                'separator' => false
+            );
+
+            $this->data ['breadcrumbs'] [] = array(
+                'text' => $this->language->get('heading_title'),
+                'href' => $this->url->link('error/not_found', 'token=' . $this->session->data ['token'], 'SSL'),
+                'separator' => ' :: '
+            );
+
+            $this->template = 'error/not_found.tpl';
+            $this->children = array(
+                'common/header',
+                'common/footer'
+            );
+
+            $this->response->setOutput($this->render());
+        }
+    }
+
+    public function upload() {
+        $this->language->load('sale/order');
+
+        $json = array();
+
+        if ($this->request->server ['REQUEST_METHOD'] == 'POST') {
+            if (!empty($this->request->files ['file'] ['name'])) {
+                $filename = html_entity_decode($this->request->files ['file'] ['name'], ENT_QUOTES, 'UTF-8');
+
+                if ((utf8_strlen($filename) < 3) || (utf8_strlen($filename) > 128)) {
+                    $json ['error'] = $this->language->get('error_filename');
+                }
+
+                // Allowed file extension types
+                $allowed = array();
+
+                $filetypes = explode("\n", $this->config->get('config_file_extension_allowed'));
+
+                foreach ($filetypes as $filetype) {
+                    $allowed [] = trim($filetype);
+                }
+
+                if (!in_array(substr(strrchr($filename, '.'), 1), $allowed)) {
+                    $json ['error'] = $this->language->get('error_filetype');
+                }
+
+                // Allowed file mime types
+                $allowed = array();
+
+                $filetypes = explode("\n", $this->config->get('config_file_mime_allowed'));
+
+                foreach ($filetypes as $filetype) {
+                    $allowed [] = trim($filetype);
+                }
+
+                if (!in_array($this->request->files ['file'] ['type'], $allowed)) {
+                    $json ['error'] = $this->language->get('error_filetype');
+                }
+
+                // Check to see if any PHP files are trying to be uploaded
+                $content = file_get_contents($this->request->files ['file'] ['tmp_name']);
+
+                if (preg_match('/\<\?php/i', $content)) {
+                    $json ['error'] = $this->language->get('error_filetype');
+                }
+
+                if ($this->request->files ['file'] ['error'] != UPLOAD_ERR_OK) {
+                    $json ['error'] = $this->language->get('error_upload_' . $this->request->files ['file'] ['error']);
+                }
+            } else {
+                $json ['error'] = $this->language->get('error_upload');
+            }
+
+            if (!isset($json ['error'])) {
+                if (is_uploaded_file($this->request->files ['file'] ['tmp_name']) && file_exists($this->request->files ['file'] ['tmp_name'])) {
+                    $file = basename($filename) . '.' . md5(mt_rand());
+
+                    $json ['file'] = $file;
+
+                    move_uploaded_file($this->request->files ['file'] ['tmp_name'], DIR_DOWNLOAD . $file);
+                }
+
+                $json ['success'] = $this->language->get('text_upload');
+            }
+        }
+
+        $this->response->setOutput(json_encode($json));
+    }
+
+}
+?>

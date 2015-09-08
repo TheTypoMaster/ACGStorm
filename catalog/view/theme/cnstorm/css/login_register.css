@@ -1,0 +1,107 @@
+@charset "utf-8";/*2015-06-08登录、注册、注册成功页面基本样式 starts*/
+.login_bg {/*height:598px;*/width:100%;margin:0 auto;overflow:hidden;}
+.backHome{margin-top:44px;float:right;}
+#checkCode{width:110px;height:40px;margin:0 0 0 10px;float:left;display:block;overflow:hidden;text-align:center;line-height:40px;font-weight:bold;font-family:Arial;font-style:italic;font-size:24px;letter-spacing:7px;}
+.loginLogo{width:225px;height:69px;margin:0 auto;float:left;display:block;overflow:hidden;background:url(../images/ico.png) no-repeat 0 -27px;}
+.logoWrap{width:998px;height:120px;z-index:1000;background:white;}
+.reg_com{display:inline-block;border-top:1px dotted #eaeaea;padding-top:10px;margin:18px 0 0 98px;width:100%;}
+.reg_com h1{font-size:12px;margin-bottom:10px;}
+.user_sayhi{width:338px;height:50px;float:left;margin-bottom:10px;}
+.user_sayhiface{width:58px;height:58px;float:left;border:1px solid #ccc;border-radius:50%;}
+.user_sayhiname{width:100px;overflow:hidden;font-weight:bold;color:#000;}
+.user_sayhiinfo{margin-left:80px;margin-right:18px;}
+.user_sayhidate{max-height:18px;float:right;color:#ccc;overflow:hidden;}
+.user_sayhicontent p{height:38px;overflow:hidden;}
+.user_sayhicontent img{width:58px;height:58px;display:none;border:1px solid #ccc;}
+.mainWrap{width:980px;margin:0 auto;float:none;overflow:hidden;clear:both;}
+.loginwMargins{margin:50px auto;}
+.logregLeft {max-width:575px;margin:0 auto;overflow:hidden;float:left;}
+.lfcscImg img{margin-top:21px;}
+.co-login{margin-top:47px;overflow:hidden;font-size:18px;}
+.loginRight{width:530px;height:35px;margin:34px auto 0;float:right;overflow:hidden;background:url(/images/site/login/register_01.jpg) no-repeat top center;font-size:0;}
+.loginForms{width:330px;margin:0 auto;float:right;overflow:hidden;}
+.lfTops{width:100%;margin:0 auto 20px;overflow:hidden;}
+.lfTops h3{float:left;overflow:hidden;font-size:18px;}
+.lfTops p{float:right;margin-top:5px;text-align:right;}
+.lfTops p a{color:#fb6e52;}
+.lfcSplits{width:100%;margin:0 auto 26px;position:relative;clear:both;}
+.lfcSplits input{width:308px;height:38px;padding:0 10px;overflow:hidden;line-height:38px;border:1px solid #ccc;font-family:"Microsoft YaHei", 微软雅黑, "Microsoft JhengHei", 华文细黑, STHeiti, MingLiu;}
+.lfcsp{width:100%;margin:0 auto;overflow:hidden;clear:both;}
+.lfcsp a{margin:0 auto;display:block;float:left;overflow:hidden;}
+.lfcSplits input.code_letter{width:120px;float:left;}
+.change_code{margin:3px 0 0 10px;display:block;float:left;overflow:hidden;}
+.change_code a{color:#fb6e52;}
+.lfcSplits .reg_check input.li_checkbox{width:13px;height:13px;padding:0;vertical-align:-3px;*vertical-align:middle;}
+.reg_check label a b, .lfcsForget a.forgot_psw, .forgetForms .ffRestlogin{color:#2a7bd6;}
+.lfcSplits input.reg_btn{width:100%;padding:0;border:1px solid #ce3d1f;background:#fb6e52;color:#fff;font-size:16px;text-indent:0;}
+.lfcSplits input.reg_btn:hover{background:#ff5837;}
+.lfcSplits .redcolor, .error-box{position:absolute;top:44px;left:0;display:block;overflow:hidden;}
+.redcolor {color:red;}
+.gree{width:130px;height:25px;display:inline-block;background:url("../images/regok.png") no-repeat;line-height:25px;color:green;}
+.loginForms #login{margin:0 auto;}
+.lfcsCooperate{width:28em;margin:0 auto 25px;float:left;overflow:hidden;}
+.lfcsCooperate a{width:100px;height:35px;margin-top:10px;display:inline-block;float:left;overflow:hidden;background:url(/images/site/login/login_fast_new.png) no-repeat;}
+.lfcsCooperate a.sina{margin-right:12px;background-position:0 -160px;}
+.lfcsCooperate a.qq{margin-right:12px;background-position:0 -120px;}
+.lfcsCooperate a.wechat{background-position:0 -200px;}
+.lfcsForget{float:right;overflow:hidden;}
+.error-box,.error_txt em{color:red;}
+.error_txt em{padding-left:15px;background:url(../images/ico.png) no-repeat -1px -1397px;}
+.loginformRight{width:380px;margin:0 auto;float:right;overflow:hidden;}
+.lrfTop{width:100%;height:6px;margin:0 auto;overflow:hidden;background:url(/images/site/login/loginBg_01.jpg) no-repeat top center;}
+.lrfBotttom{width:100%;height:6px;margin:0 auto;overflow:hidden;background:url(/images/site/login/loginBg_03.jpg) no-repeat top center;}
+.lrfmiddle{width:100%;margin:0 auto;overflow:hidden;background:url(/images/site/login/loginBg_02.jpg) repeat-y top center;}
+.logregForms{width:330px;margin:0 auto;padding:25px 25px 0 25px;overflow:hidden;}
+/*注册成功*/
+.login_bg .register {width:1042px;}
+.login_bg .register .reg_cont{width:1042px;margin:0 auto;overflow:hidden;}
+.login_bg .register .reg_cont .reg_success{font-family: "微软雅黑"; margin-left: 242px; margin-top: 100px; padding-bottom: 80px; }
+.register .reg_cont .reg_success .congrats{padding-left:39px;font-size:30px;background: url(../images/ico.png) no-repeat -1px -1577px;}
+.congrats em{color:#fb6e52;}
+.register .reg_cont .reg_success .email_check{width:100%;margin-top:15px;display:block;color:#333;font-size:14px;}
+.register .reg_cont .reg_success .email_check em,.register .reg_cont .reg_success .email_check a{color:#fb6e52;}
+.register .reg_cont .reg_success .check_btn{height:34px;margin-top:20px;padding:0 28px;display:inline-block;border:1px solid #ff5837;background:#fb6e52;font-size:20px;text-align:center;line-height:34px;color:#fff;}
+.register .reg_cont .reg_success .check_btn:hover {text-decoration:none;background:#ff5837;border-color:#f60;}
+/*2015-06-08登录、注册、注册成功页面基本样式 end*/
+
+/*2015-06-09忘记密码 starts*/
+.forgetBoxs{width:800px;margin:20px auto;overflow:hidden;clear:both;float:none;}
+.forgetBoxs .forgetIcon{width:780px;height:30px;margin:0 auto;display:block;overflow:hidden;background:url(/images/site/login/forgetIcon.png) no-repeat top center;}
+.forgetBoxs .fiStep01{background-position:0 0;}
+.forgetBoxs .fiStep02{background-position:0 -40px;}
+.forgetBoxs .fiStep03{background-position:0 -80px;}
+.forgetBoxs .fiStep04{background-position:0 -120px;}
+.fisDepicts{width:800px;margin:10px auto;display:inline-block;;overflow:hidden;}
+.fisDepicts label{width:84px;margin:0 150px 0 0;display:block;float:left;overflow:hidden;font-size:14px;}
+.fisDepicts label.fistrLast{margin-right:0;text-align:right;}
+.textRight{text-align:right;}
+.textCenter{text-align:center;}
+.forgetForms{width:330px;margin:20px auto;overflow:hidden;}
+.lfcsp input.ffCodes{width:83px;margin:0 0 0 10px;float:left;overflow:hidden;font-size:24px;color:red;}
+.forgetForms input.forgetBtn{width:155px;}
+.forgetBtn{width:153px;height:40px;display:block;border:1px solid #ce3d1f;background:#fb6e52;color:#fff;font-size:16px;line-height:40px;text-align:center;}
+.forgetBtn:hover{background:#ff5837;color:#fff;}
+.ffSends{width:260px;margin:0 auto 15px;padding-left:60px;overflow:hidden;color:#555;font-size:14px;font-weight:600;line-height:24px;background:url(/images/site/login/forgetIcon_02.jpg) no-repeat 0 0;}
+.ffSends b{font-size:20px;}
+.hide{display:none;}
+/*2015-06-09忘记密码 end*/
+
+/*2015-06-11补录邮箱 starts*/
+.none{display:none;}
+.rm_top{margin-top:38px;overflow:hidden;}
+.logo{background:url("/catalog/view/theme/cnstorm/images/ico.png");background-position:0 -27px;width:225px;height:69px;float:left;}
+.small_main{margin-left:168px;}
+.send_style .icon_bold{background:url(/images/site/login/icon_normal.gif) no-repeat center -70px;height:50px;width:100px;}
+.send_style .msg_bold{color:#f60;font-size:14px;font-weight:bold;padding-bottom:0px;line-height:22px;}
+.table_edit{margin:0 0 50px 198px;}
+.mailbox{font-size:18px;}
+.input_border{width:198px;height:18px;padding:8px;border-radius:5px;border:1px solid #ccc;}
+.input_send{margin-top:8px;border:1px solid #ce3d1f;background:#fb6e52;color:#fff;font-size:16px;width:80px;height:29px;}
+/*2015-06-11补录邮箱 end*/
+
+/*2015-07-22浮动登录、注册[[*/
+.login_register_boxs{position:absolute;top:35px;left:-35px;padding:20px;display:none;overflow:hidden;background:#fff;z-index:999;border:1px solid #ddd;}
+/*2015-07-22浮动登录、注册]]*/
+
+.greencolor {position: absolute;top: 44px;left: 0;display: block;overflow: hidden;color:green}
+

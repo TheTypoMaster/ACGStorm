@@ -1,0 +1,91 @@
+@charset "UTF-8";
+/*
+ * @author:zxy
+ * @time:2015-08-17
+ * @version:20150817110000
+ * 会员中心各页面样式
+ */
+/*会员中心2015-08-17[[*/
+/*会员中心之会员介绍*/
+.contentbox-right{width:980px;margin:0 auto;float:right;overflow:hidden;}
+.member-content{width:100%;overflow:hidden;clear:both;}
+.title-splits{width:100%;margin:20px auto;padding-bottom:10px;overflow:hidden;font-size:18px;color:#fb6e52;border-bottom:2px solid #ddd;clear:both;}
+.member-grade{width:100%;margin-bottom:15px;overflow:hidden;}
+.member-grade li{width:33.3%;float:left;}
+.member-grade .mg-vli1{text-align:left;}
+.member-grade .mg-vli2{text-align:center;}
+.member-grade .mg-vli3{text-align:right;}
+.mgv_icon {width:27px;height:20px;display:inline-block;*display:inline;*zoom:1;overflow:hidden;vertical-align:bottom;background:url(/images/site/common/member_icon.png) no-repeat;}
+.mg-v1{background-position:0 0;}
+.mg-v2{background-position:-41px 0;}
+.mg-v3{background-position:-83px 0;}
+.member-grade .mg-vwords{width:4em;display:inline-block;*display:inline;*zoom:1;overflow:hidden;font-size:14px;}
+.member-grade .mg-vwords span,.member-grade .mg-vwords em{width:100%;display:block;overflow:hidden;text-align:center;}
+.member-grade .mg-vwords em{color:#dd0000;}
+.member-gradebar{width:100%;margin-bottom:13px;}
+.member-gradebar .mg-bargrey{width:100%;height:15px;margin-left:1px;background:#c8c8c8;}
+.member-gradebar .mg-barred{width:70%;height:15px;position:relative;margin:-15px 0 0 1px;background:#dd0000;overflow-x:visible;}
+.member-gradebar .mg-barred-70{width:70%;}
+.member-gradebar .mg-barred-100{width:100%;}
+.member-gradebar .mg-barred .mg-bararrow{width:0;height:0;position:absolute;top:0;right:-10px;display:block;border-width:7px 0 8px 10px;border-style:solid;border-color:transparent #dd0000 transparent;_border-color:#c8c8c8 #dd0000 #c8c8c8;}
+.member-gradebar .mg-barred .mg-bararrow em{width:0;height:0;position:absolute;top:-4px;right:4px;display:block;border-width:4px 0 5px 7px;border-style:solid;border-color:transparent #ffcb00 transparent;_border-color:#dd0000 #ffcb00 #dd0000;}
+.member-gradebar .mg-barred-100 .mg-bararrow{display:none;}
+.member-gradebar .mg-bar1,.member-gradebar .mg-bar2{height:25px;margin-top:-20px;float:left;border-left:1px solid #c8c8c8;}
+.member-gradebar .mg-bar1{width:490px;}
+.member-gradebar .mg-bar2{width:487px;border-right:1px solid #c8c8c8;}
+.member-gradebar .red-border-left{border-left-color:#dd0000;}
+.member-gradebar .red-border-right{border-right-color:#dd0000;}
+.member-table{width:100%;border:1px solid #e6e6e6;border-top-color:#fc6f52;}
+.member-table tr th,.member-table tr td{padding:13px 0;font-size:14px;text-align:center;}
+.member-privilege tr th,.member-privilege tr td{width:25%;}
+.member-table tr th{background:#f5f5f5;border:none;font-weight:900;}
+.member-table tr td{border:1px solid #e6e6e6;}
+.member-table tr .noprivilege{color:#999;}
+.member-table tr .privilege-left{text-align:left;text-indent:40px;font-weight:900;}
+.member-privilege tr .privilege-left{color:#fb6e52;}
+.member-table .mgv_icon{margin-right:5px;}
+.mg-p1{background-position:0 -70px;}
+.mg-p2{height:23px;background-position:-38px -70px;}
+.mg-p3{height:22px;background-position:-70px -70px;}
+.mg-p4{background-position:-97px -70px;}
+.member-textcenter{width:100%;overflow:hidden;clear:both;text-align:center;}
+.member-illustrate{margin:20px auto;display:inline-block;*display:inline;*zoom:1;overflow:hidden;}
+.member-illustrate li{margin-right:30px;float:left;overflow}
+.member-illustrate .miwidth-short{width:120px;}
+.member-illustrate .miwidth-long{width:190px;}
+.member-illustrate .miwidth-last{margin-right:0;}
+.member-illustrate .illustrate-content{width:100%;overflow:hidden;}
+.mg-bv1,.mg-bv2,.mg-bv3{width:33px;height:26px;margin-right:5px;}
+.mg-bv1{background-position:0 -30px;}
+.mg-bv2{background-position:-41px -30px;}
+.mg-bv3{background-position:-83px -30px;}
+.member-illustrate .illustrate-content p{margin-bottom:10px;text-align:left;text-indent:6px;}
+.member-illustrate .illustrate-content .mic-apellation{font-size:18px;font-weight:900;text-indent:0;}
+.member-illustrate .mi-barill{width:100%;height:2px;margin-top:15px;background:#fb6e52;}
+.member-illustrate .mi-barill .mi-bararrow{width:0;height:0;margin:-7px -1px auto auto;float:right;display:block;border-width:8px 0 8px 12px;border-style:solid;border-color:transparent #fb6e52 transparent;_border-color:#fff #fb6e52 #fff;}
+.member-content .member-explains{width:100%;margin-bottom:10px;overflow:hidden;font-size:14px;}
+/*会员中心之我的任务*/
+.f_l{float:left;}
+.f_r{float:right;}
+.task-boxs{width:438px;height:124px;margin-bottom:20px;padding:20px;overflow:hidden;border:1px solid #e6e6e6;}
+.task-lefticon{width:100px;float:left;overflow:hidden;}
+.task-lefticon span{width:100%;height:80px;margin:22px auto;display:block;overflow:hidden;background:url(/images/site/common/member_icon.png) no-repeat;}
+.task-lefticon .tli_icon1{background-position:15px -108px;}
+.task-lefticon .tli_icon2{background-position:-82px -102px;}
+.task-lefticon .tli_icon3{background-position:-174px -113px;}
+.task-lefticon .tli_icon4{background-position:-268px -108px;}
+.task-lefticon .tli_icon5{background-position:22px -207px;}
+.task-lefticon .tli_icon6{background-position:-65px -207px;}
+.task-lefticon .tli_icon7{background-position:-180px -209px;}
+.task-rigthconts{width:320px;float:right;overflow:hidden;}
+.task-rigthconts .task-title{font-size:24px;}
+.task-rigthconts .task-supplement{margin-bottom:15px;font-size:14px;color:#999;}
+.task-rigthconts .task-situation{max-width:210px;margin-bottom:5px;overflow:hidden;font-size:14px;}
+.task-rigthconts .task-situation em{color:#ea0606;font-weight:900;}
+.task-rigthconts .task-do{padding:10px 30px;margin-top:-49px;float:right;overflow:hidden;font-size:14px;background:#7fd149;color:#fff;}
+.task-rigthconts .task-complete{background:#e6e6e6;color:#333;}
+.task-progress{width:120px;height:14px;margin-right:5px;display:inline-block;*display:inline;*zoom:1;overflow:hidden;vertical-align:-2px;}
+.task-progress .task-progress-unfinished,.task-progress .task-progress-complete{height:100%;overflow:hidden;}
+.task-progress .task-progress-unfinished{width:100%;background:#e6e6e6;}
+.task-progress .task-progress-complete{margin:-14px 0 0 0;background:#dd0000;}
+/*会员中心2015-08-17]]*/

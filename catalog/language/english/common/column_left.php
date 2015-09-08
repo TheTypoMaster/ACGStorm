@@ -1,0 +1,50 @@
+<?php 
+//text
+$_['text_perfectExperience']           = 'Beta version of CNstorm strives to bring you the perfect experience. Contact us if you have problems, it will be issued within 1 working day.';
+$_['text_userCenter']                  = 'User Center';
+$_['text_orderManagement']             = 'Order MGT';
+$_['text_myOrder']                     = 'order';
+$_['text_placeOrder']                  = 'ordering';
+$_['text_internationalAirWaybill']     = "int'l waybill";
+$_['text_myWarehouse']                 = 'storage';
+$_['text_myCollection']                = 'favorites';
+$_['text_gradeMembership']             = 'VIP grade:';
+$_['text_growthValue']                 = 'growth value:';
+$_['text_memberIntegral']              = 'integral:';
+$_['text_accountBalance']              = 'account balance';
+$_['text_lockTheBalance']              = 'locked balance:';
+$_['text_yuan']                        = '￥';
+$_['text_immediatelyRecharge']         = 'recharge';
+$_['text_detailedPersonalInformation'] = 'settings';
+$_['text_myWarehouseDddress']          = 'address';
+$_['text_prompt']                      = 'Tips: ans & sign ED earn 2x integral!';
+$_['text_answer']                      = 'ans';
+$_['text_sign']                        = 'sign';
+$_['text_personalSettings']            = 'Settings';
+$_['text_personalData']                = 'information';
+$_['text_accountSecurity']             = 'security';
+$_['text_deliveryAddress']             = 'address';
+
+$_['text_accountManagement']    = 'Account management';
+$_['text_RMBaccount']      = 'RMB account';
+$_['text_recordsConsumption']      = 'Records of consumption';
+$_['text_myCoupons']        = 'My coupons.';
+$_['text_myIntegral']     = 'My integral';
+$_['text_newsStation']   = 'The news station';
+$_['text_customerServiceConsulting']      = 'Customer service consulting';
+$_['text_communityNews']   = 'Community News';
+$_['text_myInvitation']   = 'My invitation';
+$_['text_commonlyUsedWidgets']   = 'Commonly used widgets';
+$_['text_checkParcel']   = 'The parcel query';
+$_['text_costEstimating']   = 'Cost estimating';
+$_['text_sizeConversion']   = 'Size conversion';
+$_['text_exchangeRateConversion']   = 'Exchange rate conversion';
+$_['text_feedback']   = 'Feedback';
+$_['text_yourSuggestion']   = 'Are you satisfied with the new version of CNStorm? Also hope that we provide for you what function? You are welcome to put forward opinions and suggestions!';
+$_['text_submit']   = 'Submit';
+$_['text_clickReply']   = 'Please input and then click reply!';
+$_['text_photo']   = 'head';
+$_['text_modifyPhoto']   = 'Modify';
+$_['text_studentCertificationIcon']   = 'Student certification Icon';
+$_['text_recToFriends']  =  'recommend';
+?>
